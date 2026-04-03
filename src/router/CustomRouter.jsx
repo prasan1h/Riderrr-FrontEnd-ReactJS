@@ -10,10 +10,10 @@ const CustomRouter = () => {
   return (
     <Routes>
         <Route path='/' element={<Home/>}></Route>
-        <Route path='/' element={<Buy/>}></Route>
-        <Route path='/' element={<Sell/>}></Route>
-        <Route path='/' element={<About/>}></Route>
-        <Route path='/' element={<Contact/>}></Route>
+        <Route path='/buy' element={<Buy/>}></Route>
+        <Route path='/sell' element={<Sell/>}></Route>
+        <Route path='/about' element={<About/>}></Route>
+        <Route path='/contact' element={<Contact/>}></Route>
     </Routes>
   )
 }
