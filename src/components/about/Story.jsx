@@ -1,4 +1,8 @@
 import React from 'react'
+import {ShieldCheck} from 'lucide-react'
+import {IndianRupee} from 'lucide-react'
+import {FileCheck} from 'lucide-react'
+
 
 function Story() {
   return (
@@ -36,7 +40,7 @@ function Story() {
             <div
               className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5"
             >
-              <i data-lucide="shield-check" className="h-5 w-5 text-white"></i>
+              <ShieldCheck className="text-white"/>
             </div>
             <div>
               <p className="font-bold text-secondary text-xl mb-1">Verified Listings</p>
@@ -50,7 +54,7 @@ function Story() {
             <div
               className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5"
             >
-              <i data-lucide="indian-rupee" className="h-5 w-5 text-white"></i>
+              <IndianRupee className="text-white"/>
             </div>
             <div>
               <p className="font-bold text-secondary text-xl mb-1">Fair Pricing</p>
@@ -63,7 +67,7 @@ function Story() {
             <div
               className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5"
             >
-              <i data-lucide="file-check" className="h-5 w-5 text-white"></i>
+              <FileCheck className="text-white"/>
             </div>
             <div>
               <p className="font-bold text-secondary text-xl mb-1">RC Transfer Support</p>

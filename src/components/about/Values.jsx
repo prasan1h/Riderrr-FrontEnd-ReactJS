@@ -1,4 +1,8 @@
 import React from 'react'
+import {Eye} from 'lucide-react'
+import {Handshake } from 'lucide-react'
+import {Lock } from 'lucide-react'
+import {Heart } from 'lucide-react'
 
 function Values() {
   return (
@@ -16,7 +20,7 @@ function Values() {
               <div
                 className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center mb-3"
               >
-                <i data-lucide="eye" className="h-4 w-4 text-white"></i>
+                <Eye className="text-white"/>
               </div>
               <p className="font-bold text-secondary text-xl mb-1">Transparency</p>
               <p className="text-lg text-black/40 leading-relaxed">
@@ -27,7 +31,7 @@ function Values() {
               <div
                 className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center mb-3"
               >
-                <i data-lucide="handshake" className="h-4 w-4 text-white"></i>
+                <Handshake className="text-white" />
               </div>
               <p className="font-bold text-secondary text-xl mb-1">Integrity</p>
               <p className="text-lg text-black/40 leading-relaxed">
@@ -38,7 +42,7 @@ function Values() {
               <div
                 className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center mb-3"
               >
-                <i data-lucide="lock" className="h-4 w-4 text-white"></i>
+               <Lock className="text-white" />
               </div>
               <p className="font-bold text-secondary text-xl mb-1">Security</p>
               <p className="text-lg text-black/40 leading-relaxed">
@@ -49,7 +53,7 @@ function Values() {
               <div
                 className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center mb-3"
               >
-                <i data-lucide="heart" className="h-4 w-4 text-white"></i>
+               <Heart className="text-white" />
               </div>
               <p className="font-bold text-secondary text-xl mb-1">
                 Customer First

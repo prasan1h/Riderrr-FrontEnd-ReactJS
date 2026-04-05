@@ -1,4 +1,6 @@
 import React from 'react'
+import { Tag } from 'lucide-react'
+import {Search} from 'lucide-react'
 
 function Process() {
   return (
@@ -20,7 +22,7 @@ function Process() {
               <div
                 className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center shrink-0"
               >
-                <i data-lucide="tag" className="h-4 w-4 text-white"></i>
+                <Tag className=" text-white"/>
               </div>
               <h3 className="text-2xl font-bold text-secondary">For Sellers</h3>
             </div>
@@ -76,7 +78,7 @@ function Process() {
               <div
                 className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center shrink-0"
               >
-                <i data-lucide="search" className="h-4 w-4 text-white"></i>
+               <Search className='text-white'/>
               </div>
               <h3 className="text-2xl font-bold text-white">For Buyers</h3>
             </div>
