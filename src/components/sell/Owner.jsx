@@ -18,35 +18,46 @@ function Owner({ vehicleDetails, setVehicleDetails, setStep }) {
   }
 
   return (
-    <>
-      {/* STEP 7: OWNER */}
-      <div id="step-7">
-        <p className="text-3xl font-bold pb-8">
-          Select <span className="text-secondary">Owner</span> type
-        </p>
+    <div id="step-7" className="px-5 sm:px-10 py-8">
 
-        <div id="ownerContainer" className="flex gap-4">
-          {owners.map((owner) => (
-            <div
-              key={owner.label}
-              onClick={() => handleOwnerClick(owner.label)}
-              className={`flex flex-col items-center justify-center w-1/4 border-2 py-8 rounded-2xl cursor-pointer transition-all
-                ${
-                  vehicleDetails.ownerType === owner.label
-                    ? "border-secondary bg-secondary text-white shadow-md scale-105"
+      <p className="text-2xl sm:text-3xl font-bold pb-8">
+        Select <span className="text-secondary">Owner</span> type
+      </p>
+
+      <div
+        id="ownerContainer"
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+      >
+        {owners.map((owner) => (
+          <div
+            key={owner.label}
+            onClick={() => handleOwnerClick(owner.label)}
+            className={`flex flex-col items-center justify-center border-2 py-6 sm:py-8 rounded-2xl cursor-pointer transition-all
+              ${
+                vehicleDetails.ownerType === owner.label
+                  ? "border-secondary bg-secondary text-white shadow-md scale-105"
                   : "border-gray-300 hover:bg-gray-100 hover:shadow-md"
-                }`}
+              }`}
+          >
+            <span
+              className={`font-bold px-4 py-2 rounded-lg mb-3 text-lg
+              ${
+                vehicleDetails.ownerType === owner.label
+                  ? "bg-white text-secondary"
+                  : "bg-blue-100 text-secondary"
+              }`}
             >
-              <span className="bg-blue-100 text-secondary font-bold px-4 py-2 rounded-lg mb-4 text-lg">
-                {owner.short}
-              </span>
+              {owner.short}
+            </span>
 
-              <p className="text-lg font-medium">{owner.label}</p>
-            </div>
-          ))}
-        </div>
+            <p className="text-base sm:text-lg font-medium text-center">
+              {owner.label}
+            </p>
+          </div>
+        ))}
       </div>
-    </>
+
+    </div>
   );
 }
 

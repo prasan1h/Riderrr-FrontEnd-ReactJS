@@ -72,83 +72,94 @@ const Sell = () => {
           setStep={setStep}
         />
       )}
-      <div className="max-w-5xl mx-auto px-5 py-5">
       {showstep && <StepCounter step={step} setStep={setStep} />}
+      {showstep && (
+        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm mb-4">
+          {step === 1 && data && (
+            <Brand
+              data={data}
+              vehicleDetails={vehicleDetails}
+              setStep={setStep}
+              setVehicleDetails={setVehicleDetails}
+            />
+          )}
+          {console.log(vehicleDetails)}
 
-      <div className="bg-white rounded-2xl shadow-sm p-8">
-        {step === 1 && data && (
-          <Brand
-            data={data}
-            vehicleDetails={vehicleDetails}
-            setStep={setStep}
-            setVehicleDetails={setVehicleDetails}
-          />
-        )}
-        {console.log(vehicleDetails)}
+          {step === 2 && (
+            <VehicleType
+              data={data}
+              vehicleDetails={vehicleDetails}
+              setStep={setStep}
+              setVehicleDetails={setVehicleDetails}
+            />
+          )}
+          {console.log(vehicleDetails)}
+          {step === 3 && (
+            <Model
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+              data={data}
+            />
+          )}
+          {step === 4 && (
+            <ModelYear
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+            />
+          )}
+          {step === 5 && (
+            <Color
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+            />
+          )}
+          {step === 6 && (
+            <PurchaseDetails
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+            />
+          )}
+          {console.log(vehicleDetails)}
+          {step === 7 && (
+            <Owner
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+            />
+          )}
+          {console.log(vehicleDetails)}
+          {step === 8 && (
+            <Photos
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+            />
+          )}
+          {step === 9 && (
+            <Inspection
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+            />
+          )}
+          {console.log(vehicleDetails)}
 
-        {step === 2 && (
-          <VehicleType
-            data={data}
-            vehicleDetails={vehicleDetails}
-            setStep={setStep}
-            setVehicleDetails={setVehicleDetails}
-          />
-        )}
-        {console.log(vehicleDetails)}
-        {step === 3 && (
-          <Model
-            vehicleDetails={vehicleDetails}
-            setVehicleDetails={setVehicleDetails}
-            setStep={setStep}
-            data={data}
-          />
-        )}
-        {step === 4 && (
-          <ModelYear
-            vehicleDetails={vehicleDetails}
-            setVehicleDetails={setVehicleDetails}
-            setStep={setStep}
-          />
-        )}
-        {step === 5 && (
-          <Color vehicleDetails={vehicleDetails} setVehicleDetails={setVehicleDetails} setStep={setStep} />
-        )}
-        {step === 6 && (
-          <PurchaseDetails
-            vehicleDetails={vehicleDetails}
-            setVehicleDetails={setVehicleDetails}
-            setStep={setStep}
-          />
-        )}
-        {console.log(vehicleDetails)}
-        {step === 7 && (
-          <Owner vehicleDetails={vehicleDetails} setVehicleDetails={setVehicleDetails} setStep={setStep} />
-        )}
-        {console.log(vehicleDetails)}
-        {step === 8 && (
-          <Photos
-            vehicleDetails={vehicleDetails}
-            setVehicleDetails={setVehicleDetails}
-            setStep={setStep}
-          />
-        )}
-        {step === 9 && (
-          <Inspection vehicleDetails={vehicleDetails} setVehicleDetails={setVehicleDetails} setStep={setStep} />
-        )}
-        {console.log(vehicleDetails)}
-
-        {step === 10 && (
-          <ContactDetails
-            vehicleDetails={vehicleDetails}
-            setVehicleDetails={setVehicleDetails}
-            setStep={setStep}
-            startsell={setStartsell}
-            showstep={setShowstep}
-          />
-        )}
-        {console.log(vehicleDetails)}
-      </div>
-      </div>
+          {step === 10 && (
+            <ContactDetails
+              vehicleDetails={vehicleDetails}
+              setVehicleDetails={setVehicleDetails}
+              setStep={setStep}
+              startsell={setStartsell}
+              showstep={setShowstep}
+            />
+          )}
+          {console.log(vehicleDetails)}
+        </div>
+      )}
 
       <Footer />
     </>

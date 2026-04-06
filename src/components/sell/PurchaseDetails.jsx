@@ -16,45 +16,49 @@ function PurchaseDetails({ vehicleDetails, setVehicleDetails, setStep }) {
   }
 
   return (
-    <>
-      {/* STEP 6: PURCHASE DETAILS */}
-      <div id="step-6">
-        <p className="text-3xl font-bold pb-8">Enter Purchase Details</p>
+    <div id="step-6" className="px-5 sm:px-10 py-8 max-w-xl mx-auto">
 
-        <label className="block text-gray-700 font-medium mb-2">
-          Purchase Date:
-        </label>
+      <p className="text-2xl sm:text-3xl font-bold pb-6 sm:pb-8">
+        Enter Purchase Details
+      </p>
 
-        <input
-          type="date"
-          name="purchaseDate"
-            max={new Date(Date.now() - 86400000).toISOString().split("T")[0]}
-          value={vehicleDetails.purchaseDate || ""}
-          onChange={handleChange}
-          className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl mb-6 focus:outline-none focus:border-secondary"
-        />
+      {/* Purchase Date */}
+      <label className="block text-gray-700 font-medium mb-2">
+        Purchase Date:
+      </label>
 
-        <label className="block text-gray-700 font-medium mb-2">
-          Purchase Amount (₹):
-        </label>
+      <input
+        type="date"
+        name="purchaseDate"
+        max={new Date(Date.now() - 86400000).toISOString().split("T")[0]}
+        value={vehicleDetails.purchaseDate || ""}
+        onChange={handleChange}
+        className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl mb-6 focus:outline-none focus:border-secondary"
+      />
 
-        <input
-          type="number"
-          name="purchaseAmount"
-          value={vehicleDetails.purchaseAmount || ""}
-          onChange={handleChange}
-          className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl focus:outline-none focus:border-secondary"
-        />
+      {/* Purchase Amount */}
+      <label className="block text-gray-700 font-medium mb-2">
+        Purchase Amount (₹):
+      </label>
 
-        <button
-          onClick={savePurchaseDetails}
-          className="mt-8 w-full bg-secondary text-white py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-all"
-          disabled={!vehicleDetails.purchaseDate || !vehicleDetails.purchaseAmount}
-        >
-          Continue
-        </button>
-      </div>
-    </>
+      <input
+        type="number"
+        name="purchaseAmount"
+        value={vehicleDetails.purchaseAmount || ""}
+        onChange={handleChange}
+        className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl focus:outline-none focus:border-secondary"
+      />
+
+      {/* Continue Button */}
+      <button
+        onClick={savePurchaseDetails}
+        className="mt-8 w-full bg-secondary text-white py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-all"
+        disabled={!vehicleDetails.purchaseDate || !vehicleDetails.purchaseAmount}
+      >
+        Continue
+      </button>
+
+    </div>
   );
 }
 
