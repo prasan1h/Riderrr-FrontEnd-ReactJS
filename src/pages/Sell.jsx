@@ -12,7 +12,7 @@ import Color from "../components/sell/Color";
 import PurchaseDetails from "../components/sell/PurchaseDetails";
 import Owner from "../components/sell/Owner";
 import Inspection from "../components/sell/Inspection";
-import Contact from "../components/sell/Contact";
+import ContactDetails from "../components/sell/ContactDetails";
 import Photos from "../components/sell/Photos";
 
 const Sell = () => {
@@ -72,7 +72,7 @@ const Sell = () => {
           setStep={setStep}
         />
       )}
-      <div className="max-w-5xl mx-auto px-5">
+      <div className="max-w-5xl mx-auto px-5 py-5">
       {showstep && <StepCounter step={step} setStep={setStep} />}
 
       <div className="bg-white rounded-2xl shadow-sm p-8">
@@ -111,17 +111,18 @@ const Sell = () => {
           />
         )}
         {step === 5 && (
-          <Color setVehicleDetails={setVehicleDetails} setStep={setStep} />
+          <Color vehicleDetails={vehicleDetails} setVehicleDetails={setVehicleDetails} setStep={setStep} />
         )}
         {step === 6 && (
           <PurchaseDetails
+            vehicleDetails={vehicleDetails}
             setVehicleDetails={setVehicleDetails}
             setStep={setStep}
           />
         )}
         {console.log(vehicleDetails)}
         {step === 7 && (
-          <Owner setVehicleDetails={setVehicleDetails} setStep={setStep} />
+          <Owner vehicleDetails={vehicleDetails} setVehicleDetails={setVehicleDetails} setStep={setStep} />
         )}
         {console.log(vehicleDetails)}
         {step === 8 && (
@@ -132,12 +133,13 @@ const Sell = () => {
           />
         )}
         {step === 9 && (
-          <Inspection setVehicleDetails={setVehicleDetails} setStep={setStep} />
+          <Inspection vehicleDetails={vehicleDetails} setVehicleDetails={setVehicleDetails} setStep={setStep} />
         )}
         {console.log(vehicleDetails)}
 
         {step === 10 && (
-          <Contact
+          <ContactDetails
+            vehicleDetails={vehicleDetails}
             setVehicleDetails={setVehicleDetails}
             setStep={setStep}
             startsell={setStartsell}
