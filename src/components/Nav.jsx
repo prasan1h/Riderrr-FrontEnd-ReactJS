@@ -5,7 +5,7 @@ import {Link} from 'react-router'
 const Nav = () => {
   return (
     <>
-        <header className="p-5 bg-primary">
+        <header className="p-5 bg-primary backdrop-blur-lg border-b border-gray-200/20">
         <nav className="flex justify-between justify-self-center items-center w-full px-20">
             <div className="flex justify-center items-center">
                 <img src={logo} alt="logo" width="200px"/>
