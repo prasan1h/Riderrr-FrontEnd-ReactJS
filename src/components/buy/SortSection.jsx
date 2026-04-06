@@ -3,42 +3,8 @@ import React, { useEffect } from "react";
 const SortSection = ({
   sort,
   setSort,
-  dataList,
-  setDataList,
-  filteredData,
-  setFilteredData,
-  result,
-  setResult
+
 }) => {
-
-
-  const sortBuy = () => {
-
-    // console.log("sortBuy");
-
-    if (sort === "vehicle_selling_price_lth") {
-      result.sort((a, b) => a.vehicle_selling_price - b.vehicle_selling_price);
-    } else if (sort === "vehicle_selling_price_htl") {
-      result.sort((a, b) => b.vehicle_selling_price - a.vehicle_selling_price);
-    } else if (sort === "vehicle_model_year_lth") {
-      result.sort((a, b) => a.vehicle_model_year - b.vehicle_model_year);
-    } else if (sort === "vehicle_model_year_htl") {
-      result.sort((a, b) => b.vehicle_model_year - a.vehicle_model_year);
-    } else if (sort === "rating_htl") {
-      result.sort((a, b) => b.vehicle_rating - a.vehicle_rating);
-    }
-    
-    // setSort(result);
-    setResult(result);
-    setFilteredData(result);
-    // console.log("sortBuy : ", result);
-    // console.log("sort filtered : ", filteredData);
-  };
-
-  useEffect(() => {
-    sortBuy();
-    // console.log("sort",sort);
-  }, [sort]);
 
   return (
     <>
