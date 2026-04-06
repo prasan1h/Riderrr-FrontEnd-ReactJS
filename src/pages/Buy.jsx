@@ -17,14 +17,12 @@ const Buy = () => {
     price: [],
   });
 
-  // FETCH DATA
   useEffect(() => {
     fetch("/data/reride_dummy_bikes_80_realistic.json")
       .then((res) => res.json())
       .then((data) => setDataList(data));
   }, []);
 
-  // APPLY ALL LOGIC
   useEffect(() => {
     let result = [...dataList];
 
@@ -107,7 +105,6 @@ const Buy = () => {
     <>
       <Nav />
       <div className="p-5">
-        {/* SEARCH */}
         <input
           type="text"
           placeholder="Search bikes..."
@@ -115,7 +112,6 @@ const Buy = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {/* SORT */}
         <select
           className="border p-2 mb-4"
           onChange={(e) => setSort(e.target.value)}
