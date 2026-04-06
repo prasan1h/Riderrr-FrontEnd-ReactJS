@@ -27,22 +27,34 @@ function AboutBanner() {
         — verified listings, fair pricing, and full ownership support.
       </p>
       <div
-        className="flex justify-center gap-10 border-t border-white/10 pt-10 max-w-sm mx-auto"
+        className="flex justify-around border-t border-white/10 pt-10 mx-auto"
       >
         <div className="text-center">
-          <div className="text-3xl font-extrabold">5K+</div>
+          <div className="text-3xl font-extrabold">500+</div>
           <div className="text-white/50 text-xs mt-1 uppercase tracking-wider">
-            Bikes Sold
-          </div>
-        </div>
-        <div className="text-center border-x border-white/10 px-10">
-          <div className="text-3xl font-extrabold">98%</div>
-          <div className="text-white/50 text-xs mt-1 uppercase tracking-wider">
-            Satisfaction
+            Employees
           </div>
         </div>
         <div className="text-center">
-          <div className="text-3xl font-extrabold">4</div>
+          <div className="text-3xl font-extrabold">50K+</div>
+          <div className="text-white/50 text-xs mt-1 uppercase tracking-wider">
+            Deals
+          </div>
+        </div>
+        <div className="text-center">
+          <div className="text-3xl font-extrabold">96%</div>
+          <div className="text-white/50 text-xs mt-1 uppercase tracking-wider">
+            Positive Reviews
+          </div>
+        </div>
+        <div className="text-center  px-10">
+          <div className="text-3xl font-extrabold">4+</div>
+          <div className="text-white/50 text-xs mt-1 uppercase tracking-wider">
+            Years
+          </div>
+        </div>
+        <div className="text-center">
+          <div className="text-3xl font-extrabold">3+</div>
           <div className="text-white/50 text-xs mt-1 uppercase tracking-wider">
             Branches
           </div>

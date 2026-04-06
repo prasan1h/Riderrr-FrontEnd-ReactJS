@@ -1,6 +1,6 @@
 import React from "react";
 
-function SellBanner() {
+function SellBanner({setShowstep,setstartsell,setStep}) {
   return (
     <>
       <section
@@ -35,6 +35,7 @@ function SellBanner() {
             <div className="flex flex-wrap items-center gap-4 mb-10">
               <button
                 id="startSellBtn"
+                onClick={()=> {setShowstep(true); setstartsell(false); setStep(1);}}
                 className="bg-secondary text-white px-8 py-3.5 rounded-xl font-bold text-base hover:opacity-90 transition-all shadow-md"
               >
                 Start Selling →
