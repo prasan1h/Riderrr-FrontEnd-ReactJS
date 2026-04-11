@@ -26,8 +26,8 @@ const Sell = () => {
     model: "",
     year: "",
     color: "",
-    purchaseDate: "",
-    purchaseAmount: "",
+    purchasedDate: "",
+    purchasedAmount: "",
     ownerType: "",
     inspectionDate: "",
     inspectionBranch: "",
@@ -45,6 +45,9 @@ const Sell = () => {
     },
   });
 
+  
+ 
+
   const [data, setdata] = useState(null);
 
   useEffect(() => {
@@ -55,7 +58,7 @@ const Sell = () => {
     fetch("./src/data/vehicles.json")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+       
         setdata(data);
       })
       .catch((err) => console.log(err));
@@ -83,7 +86,7 @@ const Sell = () => {
               setVehicleDetails={setVehicleDetails}
             />
           )}
-          {console.log(vehicleDetails)}
+          
 
           {step === 2 && (
             <VehicleType
@@ -93,7 +96,7 @@ const Sell = () => {
               setVehicleDetails={setVehicleDetails}
             />
           )}
-          {console.log(vehicleDetails)}
+          
           {step === 3 && (
             <Model
               vehicleDetails={vehicleDetails}
@@ -123,7 +126,7 @@ const Sell = () => {
               setStep={setStep}
             />
           )}
-          {console.log(vehicleDetails)}
+          
           {step === 7 && (
             <Owner
               vehicleDetails={vehicleDetails}
@@ -131,7 +134,7 @@ const Sell = () => {
               setStep={setStep}
             />
           )}
-          {console.log(vehicleDetails)}
+          
           {step === 8 && (
             <Photos
               vehicleDetails={vehicleDetails}
@@ -146,7 +149,7 @@ const Sell = () => {
               setStep={setStep}
             />
           )}
-          {console.log(vehicleDetails)}
+          
 
           {step === 10 && (
             <ContactDetails
@@ -157,7 +160,8 @@ const Sell = () => {
               showstep={setShowstep}
             />
           )}
-          {console.log(vehicleDetails)}
+          
+          
         </div>
       )}
 

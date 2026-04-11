@@ -8,6 +8,7 @@ function Photos({ vehicleDetails, setVehicleDetails, setStep }) {
     { key: "left", label: "Left Side" },
     { key: "dashboard", label: "Dashboard / Odometer" },
   ];
+  
 
   const handleRegistrationChange = (e) => {
     setVehicleDetails({
@@ -48,7 +49,7 @@ function Photos({ vehicleDetails, setVehicleDetails, setStep }) {
 
   const handleContinue = () => {
     console.log("Final Vehicle Data:", vehicleDetails);
-    setStep(9); // or next step
+    setStep(9); 
   };
   return (
     <>

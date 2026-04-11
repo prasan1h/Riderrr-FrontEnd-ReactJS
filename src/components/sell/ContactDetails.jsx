@@ -7,6 +7,8 @@ function ContactDetails({
   startsell,
   showstep,
 }) {
+  const url = "http://localhost:8080/api/bike/add";
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -18,11 +20,50 @@ function ContactDetails({
 
   function submitDetails() {
     alert("Vehicle details submitted successfully!");
+    
 
+    let vdata =new FormData()
+    vdata.append("brand",vehicleDetails.brand)
+    vdata.append("type",vehicleDetails.type)
+    vdata.append("model",vehicleDetails.model)
+    vdata.append("modelYear",vehicleDetails.year)
+    vdata.append("color",vehicleDetails.color)
+    vdata.append("purchaseDate",vehicleDetails.purchasedDate)
+    vdata.append("PurchasedAmount",vehicleDetails.purchasedAmount)
+    vdata.append("ownerType",vehicleDetails.ownerType)
+    vdata.append("inspectionDate",vehicleDetails.inspectionDate)
+    vdata.append("inspectionBranch","JALAHALLI")
+    vdata.append("customerName",vehicleDetails.Name)
+    vdata.append("customerPhone",vehicleDetails.Phone)
+    vdata.append("customerEmail",vehicleDetails.Email)
+    vdata.append("registrationNumber",vehicleDetails.registrationNumber)
+
+    Object.values(vehicleDetails.images).forEach((img) => {
+    if (img) {
+    vdata.append("images", img);
+    }
+    });
+
+    fetch(url, {
+      method: "POST",
+      body: vdata,
+    })
+      .then((res) => {
+        if (!res.ok) {
+          alert("Try again");
+          return;
+        }
+      })
+      .catch((err) => console.log(err));
+
+    console.log(vehicleDetails)
     setStep(0);
     startsell(true);
     showstep(false);
   }
+
+   
+  
 
   return (
     <div id="step-10" className="px-5 sm:px-10 py-8">
@@ -101,6 +142,6 @@ function ContactDetails({
       </div>
     </div>
   );
-}
 
+}
 export default ContactDetails;

@@ -29,9 +29,9 @@ function PurchaseDetails({ vehicleDetails, setVehicleDetails, setStep }) {
 
       <input
         type="date"
-        name="purchaseDate"
+        name="purchasedDate"
         max={new Date(Date.now() - 86400000).toISOString().split("T")[0]}
-        value={vehicleDetails.purchaseDate || ""}
+        value={vehicleDetails.purchasedDate || ""}
         onChange={handleChange}
         className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl mb-6 focus:outline-none focus:border-secondary"
       />
@@ -43,8 +43,8 @@ function PurchaseDetails({ vehicleDetails, setVehicleDetails, setStep }) {
 
       <input
         type="number"
-        name="purchaseAmount"
-        value={vehicleDetails.purchaseAmount || ""}
+        name="purchasedAmount"
+        value={vehicleDetails.purchasedAmount || ""}
         onChange={handleChange}
         className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl focus:outline-none focus:border-secondary"
       />
@@ -53,7 +53,7 @@ function PurchaseDetails({ vehicleDetails, setVehicleDetails, setStep }) {
       <button
         onClick={savePurchaseDetails}
         className="mt-8 w-full bg-secondary text-white py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-all"
-        disabled={!vehicleDetails.purchaseDate || !vehicleDetails.purchaseAmount}
+        disabled={!vehicleDetails.purchasedDate || !vehicleDetails.purchasedAmount}
       >
         Continue
       </button>
