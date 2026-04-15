@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -14,6 +14,7 @@ import Owner from "../components/sell/Owner";
 import Inspection from "../components/sell/Inspection";
 import ContactDetails from "../components/sell/ContactDetails";
 import Photos from "../components/sell/Photos";
+import Addvehicle from "../components/Addvehicle";
 
 const Sell = () => {
   const [step, setStep] = useState(0);
@@ -164,6 +165,8 @@ const Sell = () => {
           
         </div>
       )}
+
+      {data && <Addvehicle data={data} />}
 
       <Footer />
     </>
