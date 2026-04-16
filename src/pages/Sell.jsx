@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import SellBanner from "../components/sell/SellBanner";
 import StepCounter from "../components/sell/StepCounter";
-import Brand from "../components/sell/Brand";
+import Brand from "../components/sell/Brand"; 
 import VehicleType from "../components/sell/VehicleType";
 import Model from "../components/sell/Model";
 import ModelYear from "../components/sell/ModelYear";
@@ -14,7 +14,7 @@ import Owner from "../components/sell/Owner";
 import Inspection from "../components/sell/Inspection";
 import ContactDetails from "../components/sell/ContactDetails";
 import Photos from "../components/sell/Photos";
-import Addvehicle from "../components/Addvehicle";
+import Addvehicle from "./Staff/Addvehicle";
 
 const Sell = () => {
   const [step, setStep] = useState(0);
