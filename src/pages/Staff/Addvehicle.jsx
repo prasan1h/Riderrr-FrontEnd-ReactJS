@@ -3,8 +3,14 @@ import { useState } from "react";
 
 function Addvehicle({ data = {} }) {
   const brands = Object.keys(data);
-   const url = "http://localhost:8080/api/bike/add";
+  const url = "http://localhost:8080/api/bike/add";
+  // const today = new Date().toISOString().split("T")[0];
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
 
+  const todayStr = today.toISOString().split("T")[0];
+  const yesterdayStr = yesterday.toISOString().split("T")[0];
 
   const colors = [
     "Black",
@@ -45,45 +51,44 @@ function Addvehicle({ data = {} }) {
     photos: [],
   });
 
-
   function handleSubmit(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  let vdata = new FormData();
+    let vdata = new FormData();
 
-  vdata.append("brand", formData.brand);
-  vdata.append("type", formData.type);
-  vdata.append("model", formData.model);
-  vdata.append("modelYear", formData.year);
-  vdata.append("color", formData.color);
-  vdata.append("purchaseDate", formData.purchaseDate);
-  vdata.append("PurchasedAmount", formData.purchasedAmount);
-  vdata.append("ownerType", formData.ownerType);
-  vdata.append("registrationNumber", formData.registrationNumber);
-  vdata.append("inspectionDate", formData.inspectionDate);
-  vdata.append("inspectionBranch", formData.inspectionBranch);
+    vdata.append("brand", formData.brand);
+    vdata.append("type", formData.type);
+    vdata.append("model", formData.model);
+    vdata.append("modelYear", formData.year);
+    vdata.append("color", formData.color);
+    vdata.append("purchaseDate", formData.purchaseDate);
+    vdata.append("PurchasedAmount", formData.purchasedAmount);
+    vdata.append("ownerType", formData.ownerType);
+    vdata.append("registrationNumber", formData.registrationNumber);
+    vdata.append("inspectionDate", formData.inspectionDate);
+    vdata.append("inspectionBranch", formData.inspectionBranch);
 
-  vdata.append("customerName", formData.customerName);
-  vdata.append("customerPhone", formData.mobile);
-  vdata.append("customerEmail", formData.email);
+    vdata.append("customerName", formData.customerName);
+    vdata.append("customerPhone", formData.mobile);
+    vdata.append("customerEmail", formData.email);
 
-  formData.photos.forEach((photo) => {
-    vdata.append("images", photo);
-  });
+    formData.photos.forEach((photo) => {
+      vdata.append("images", photo);
+    });
 
-  fetch(url, {
-    method: "POST",
-    body: vdata,
-  })
-    .then((res) => {
-      if (!res.ok) {
-        alert("Try again");
-        return;
-      }
-      alert("Vehicle added successfully");
+    fetch(url, {
+      method: "POST",
+      body: vdata,
     })
-    .catch((err) => console.log(err));
-}
+      .then((res) => {
+        if (!res.ok) {
+          alert("Try again");
+          return;
+        }
+        alert("Vehicle added successfully");
+      })
+      .catch((err) => console.log(err));
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,22 +101,27 @@ function Addvehicle({ data = {} }) {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
+    const updatedPhotos = [...formData.photos, ...files];
 
-    if (files.length > 5) {
+    if (updatedPhotos.length > 5) {
       alert("Maximum 5 photos allowed");
       return;
     }
 
     setFormData({
       ...formData,
-      photos: files,
+      photos: updatedPhotos,
     });
   };
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log(formData);
-//   };
+  const removePhoto = (index) => {
+    const updatedPhotos = formData.photos.filter((_, i) => i !== index);
+
+    setFormData({
+      ...formData,
+      photos: updatedPhotos,
+    });
+  };
 
   return (
     <>
@@ -229,6 +239,7 @@ function Addvehicle({ data = {} }) {
                 name="purchaseDate"
                 className="w-full border rounded-lg p-2"
                 onChange={handleChange}
+                max={yesterdayStr}
               />
             </div>
 
@@ -280,6 +291,7 @@ function Addvehicle({ data = {} }) {
             <label className="block font-medium mb-1">
               Upload Vehicle Photos (Max 5)
             </label>
+
             <label className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer inline-block">
               Choose Files
               <input
@@ -288,8 +300,30 @@ function Addvehicle({ data = {} }) {
                 accept="image/*"
                 onChange={handleFileChange}
                 className="hidden"
+                disabled={formData.photos.length >= 5}
               />
             </label>
+
+            <div className="grid grid-cols-3 gap-4 mt-4">
+              {formData.photos.map((photo, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="vehicle"
+                    className="w-full h-24 object-cover rounded-lg"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => removePhoto(index)}
+                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full px-2"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+
             <p className="text-sm mt-2 text-gray-600">
               {formData.photos.length} files selected
             </p>
@@ -307,6 +341,7 @@ function Addvehicle({ data = {} }) {
                 name="inspectionDate"
                 className="w-full border rounded-lg p-2"
                 onChange={handleChange}
+                min={todayStr}
               />
             </div>
 
