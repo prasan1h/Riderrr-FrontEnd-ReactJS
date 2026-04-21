@@ -6,6 +6,7 @@ import Sell from '../pages/Sell'
 import About from '../pages/About'
 import Contact from '../pages/Contact'
 import RequestInspection from '../pages/Staff/RequestInspection'
+import Addvehicle from '../pages/Staff/Addvehicle'
 
 const CustomRouter = () => {
   return (
@@ -16,6 +17,7 @@ const CustomRouter = () => {
         <Route path='/about' element={<About/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
         <Route path='/requestInspect' element={<RequestInspection/>}></Route>
+        <Route path='/addvehicle' element={<Addvehicle/>}></Route>
     </Routes>
   )
 }

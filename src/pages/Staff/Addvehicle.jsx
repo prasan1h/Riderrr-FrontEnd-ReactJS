@@ -1,7 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import StaffNav from "./StaffNav";
 
-function Addvehicle({ data = {} }) {
+function Addvehicle() {
+  const [data, setdata] = useState({});
+
+  useEffect(() => {
+    getdata();
+  }, []);
+
+  function getdata() {
+    fetch("./src/data/vehicles.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setdata(data);
+      })
+      .catch((err) => console.log(err));
+  }
   const brands = Object.keys(data);
   const url = "http://localhost:8080/api/bike/add";
   // const today = new Date().toISOString().split("T")[0];
@@ -86,6 +101,7 @@ function Addvehicle({ data = {} }) {
           return;
         }
         alert("Vehicle added successfully");
+        console.log(formData);
       })
       .catch((err) => console.log(err));
   }
@@ -125,286 +141,343 @@ function Addvehicle({ data = {} }) {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto bg-gray-100 p-8 rounded-lg shadow">
-        <h2 className="text-2xl font-bold text-center text-orange-600 mb-8">
-          Vehicle Information Form
-        </h2>
+      <StaffNav />
+      <div className="ml-64 h-screen overflow-y-auto bg-white p-10">
+        <div className="w-full mx-auto bg-white p-10 ">
+          <h2 className="text-2xl font-bold text-center text-orange-600 mb-8">
+            Vehicle Information Form
+          </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Vehicle Information */}
-
-          <div>
-            <label className="block font-medium mb-1">Brand</label>
-
-            <select
-              name="brand"
-              value={formData.brand}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2"
-            >
-              <option value="">-- Select Brand --</option>
-
-              {brands.map((brand) => (
-                <option key={brand} value={brand}>
-                  {brand}
-                </option>
-              ))}
-
-              <option value="Other">Other</option>
-            </select>
-
-            {formData.brand === "Other" && (
-              <input
-                type="text"
-                name="brand"
-                placeholder="Enter Brand Name"
-                className="w-full border rounded-lg p-2 mt-2"
-                onChange={handleChange}
-              />
-            )}
-          </div>
-
-          <div>
-            <label className="block font-medium mb-1">Type</label>
-            <select
-              name="type"
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2"
-            >
-              <option>-- Select Type --</option>
-              <option>Bike</option>
-              <option>Scooty</option>
-              <option>Electric</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block font-medium mb-1">Model</label>
-            <input
-              type="text"
-              name="model"
-              placeholder="e.g. Pulsar 150"
-              className="w-full border rounded-lg p-2"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div>
-            <label className="block font-medium mb-1">Model Year</label>
-
-            <select
-              name="year"
-              value={formData.year}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2"
-            >
-              <option value="">-- Select Year --</option>
-
-              {years.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block font-medium mb-1">color</label>
-
-            <select
-              name="color"
-              value={formData.color}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2"
-            >
-              <option value="">-- Select color --</option>
-
-              {colors.map((color) => (
-                <option key={color} value={color}>
-                  {color}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Purchase Details */}
-
-          <h3 className="text-lg font-semibold pt-6">Purchase Details</h3>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block font-medium mb-1">Purchase Date</label>
-              <input
-                type="date"
-                name="purchaseDate"
-                className="w-full border rounded-lg p-2"
-                onChange={handleChange}
-                max={yesterdayStr}
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Vehicle Information */}
 
             <div>
-              <label className="block font-medium mb-1">
-                Purchase Amount (₹)
+              <label className="block font-medium mb-1" htmlFor="brand">
+                Brand
               </label>
-              <input
-                type="number"
-                name="purchasedAmount"
-                placeholder="e.g. 60000"
-                className="w-full border rounded-lg p-2"
-                onChange={handleChange}
-              />
-            </div>
-          </div>
 
-          <div>
-            <label className="block font-medium mb-1">Owner Type</label>
-            <select
-              name="ownerType"
-              className="w-full border rounded-lg p-2"
-              onChange={handleChange}
-            >
-              <option>-- Select Owner Type --</option>
-              <option>1st Owner</option>
-              <option>2nd Owner</option>
-              <option>3rd Owner</option>
-              <option value="">4+ Owner</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block font-medium mb-1">
-              Vehicle Registration Number
-            </label>
-            <input
-              type="text"
-              name="registrationNumber"
-              placeholder="e.g. KA 01 AB 1234"
-              className="w-full border rounded-lg p-2"
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* Upload Photos */}
-
-          <div>
-            <label className="block font-medium mb-1">
-              Upload Vehicle Photos (Max 5)
-            </label>
-
-            <label className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer inline-block">
-              Choose Files
-              <input
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleFileChange}
-                className="hidden"
-                disabled={formData.photos.length >= 5}
-              />
-            </label>
-
-            <div className="grid grid-cols-3 gap-4 mt-4">
-              {formData.photos.map((photo, index) => (
-                <div key={index} className="relative">
-                  <img
-                    src={URL.createObjectURL(photo)}
-                    alt="vehicle"
-                    className="w-full h-24 object-cover rounded-lg"
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => removePhoto(index)}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full px-2"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-sm mt-2 text-gray-600">
-              {formData.photos.length} files selected
-            </p>
-          </div>
-
-          {/* Inspection Details */}
-
-          <h3 className="text-lg font-semibold pt-6">Inspection Details</h3>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block font-medium mb-1">Inspection Date</label>
-              <input
-                type="date"
-                name="inspectionDate"
-                className="w-full border rounded-lg p-2"
-                onChange={handleChange}
-                min={todayStr}
-              />
-            </div>
-
-            <div>
-              <label className="block font-medium mb-1">
-                Inspection Branch
-              </label>
               <select
-                name="inspectionBranch"
+                id="brand"
+                name="brand"
+                value={formData.brand}
                 onChange={handleChange}
                 className="w-full border rounded-lg p-2"
               >
-                <option>Jalahalli</option>
-                <option>City Center</option>
-                <option>Main Branch</option>
+                <option value="">-- Select Brand --</option>
+
+                {brands.map((brand) => (
+                  <option key={brand} value={brand}>
+                    {brand}
+                  </option>
+                ))}
+
+                <option value="Other">Other</option>
+              </select>
+
+              {formData.brand === "Other" && (
+                <input
+                  id="brandOther"
+                  type="text"
+                  name="brand"
+                  placeholder="Enter Brand Name"
+                  className="w-full border rounded-lg p-2 mt-2"
+                  onChange={handleChange}
+                />
+              )}
+            </div>
+
+            <div>
+              <label className="block font-medium mb-1" htmlFor="type">
+                Type
+              </label>
+
+              <select
+                id="type"
+                name="type"
+                value={formData.type}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+              >
+                <option value="">-- Select Type --</option>
+                <option value="Bike">Bike</option>
+                <option value="Scooty">Scooty</option>
+                <option value="Electric">Electric</option>
               </select>
             </div>
-          </div>
 
-          {/* Contact Info */}
+            <div>
+              <label className="block font-medium mb-1" htmlFor="model">
+                Model
+              </label>
 
-          <h3 className="text-lg font-semibold pt-6">Contact Information</h3>
+              <input
+                id="model"
+                type="text"
+                name="model"
+                placeholder="e.g. Pulsar 150"
+                className="w-full border rounded-lg p-2"
+                autoComplete="off"
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <input
-              type="text"
-              name="customerName"
-              placeholder="Full Name"
-              className="border rounded-lg p-2"
-              onChange={handleChange}
-            />
+            <div>
+              <label className="block font-medium mb-1" htmlFor="year">
+                Model Year
+              </label>
 
-            <input
-              type="text"
-              name="mobile"
-              maxLength={10}
-              placeholder="Mobile Number"
-              className="border rounded-lg p-2"
-              onChange={handleChange}
-              required
-            />
+              <select
+                id="year"
+                name="year"
+                value={formData.year}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+              >
+                <option value="">-- Select Year --</option>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              className="border rounded-lg p-2"
-              onChange={handleChange}
-              required
-            />
-          </div>
+                {years.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Submit Button */}
+            <div>
+              <label className="block font-medium mb-1" htmlFor="color">
+                Color
+              </label>
 
-          <div className="text-center pt-6">
-            <button
-              type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-lg"
-            >
-              Submit Vehicle Details
-            </button>
-          </div>
-        </form>
+              <select
+                id="color"
+                name="color"
+                value={formData.color}
+                onChange={handleChange}
+                className="w-full border rounded-lg p-2"
+              >
+                <option value="">-- Select Color --</option>
+
+                {colors.map((color) => (
+                  <option key={color} value={color}>
+                    {color}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Purchase Details */}
+
+            <h3 className="text-lg font-semibold pt-6">Purchase Details</h3>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label
+                  className="block font-medium mb-1"
+                  htmlFor="purchaseDate"
+                >
+                  Purchase Date
+                </label>
+
+                <input
+                  id="purchaseDate"
+                  type="date"
+                  name="purchaseDate"
+                  className="w-full border rounded-lg p-2"
+                  onChange={handleChange}
+                  max={yesterdayStr}
+                />
+              </div>
+
+              <div>
+                <label
+                  className="block font-medium mb-1"
+                  htmlFor="purchasedAmount"
+                >
+                  Purchase Amount (₹)
+                </label>
+                <input
+                  id="purchasedAmount"
+                  type="number"
+                  name="purchasedAmount"
+                  placeholder="e.g. 60000"
+                  className="w-full border rounded-lg p-2"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-medium mb-1" htmlFor="ownerType">
+                Owner Type
+              </label>
+              <select
+                id="ownerType"
+                name="ownerType"
+                className="w-full border rounded-lg p-2"
+                onChange={handleChange}
+              >
+                <option value="">-- Select Owner Type --</option>
+                <option value="1st Owner">1st Owner</option>
+                <option value="2nd Owner">2nd Owner</option>
+                <option value="3rd Owner">3rd Owner</option>
+                <option value="4+ Owner">4+ Owner</option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                className="block font-medium mb-1"
+                htmlFor="registrationNumber"
+              >
+                Vehicle Registration Number
+              </label>
+              <input
+                id="registrationNumber"
+                type="text"
+                name="registrationNumber"
+                placeholder="e.g. KA 01 AB 1234"
+                className="w-full border rounded-lg p-2"
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Upload Photos */}
+
+            <div>
+              <label className="block font-medium mb-1">
+                Upload Vehicle Photos (Max 5)
+              </label>
+
+              <label className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer inline-block">
+                Choose Files
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  disabled={formData.photos.length >= 5}
+                />
+              </label>
+
+              <div className="grid grid-cols-3 gap-4 mt-4">
+                {formData.photos.map((photo, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt="vehicle"
+                      className="w-full h-24 object-cover rounded-lg"
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => removePhoto(index)}
+                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full px-2"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-sm mt-2 text-gray-600">
+                {formData.photos.length} files selected
+              </p>
+            </div>
+
+            {/* Inspection Details */}
+
+            <h3 className="text-lg font-semibold pt-6">Inspection Details</h3>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label
+                  className="block font-medium mb-1"
+                  htmlFor="inspectionDate"
+                >
+                  Inspection Date
+                </label>
+                <input
+                  id="inspectionDate"
+                  type="date"
+                  name="inspectionDate"
+                  className="w-full border rounded-lg p-2"
+                  onChange={handleChange}
+                  min={todayStr}
+                />
+              </div>
+
+              <div>
+                <label
+                  className="block font-medium mb-1"
+                  htmlFor="inspectionBranch"
+                >
+                  Inspection Branch
+                </label>
+                <select
+                  id="inspectionBranch"
+                  name="inspectionBranch"
+                  onChange={handleChange}
+                  className="w-full border rounded-lg p-2"
+                >
+                  <option>Jalahalli</option>
+                  <option>City Center</option>
+                  <option>Main Branch</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Contact Info */}
+
+            <h3 className="text-lg font-semibold pt-6">Contact Information</h3>
+
+            <div className="grid md:grid-cols-3 gap-4">
+              <input
+                id="customerName"
+                type="text"
+                name="customerName"
+                placeholder="Full Name"
+                autoComplete="name"
+                className="border rounded-lg p-2"
+                onChange={handleChange}
+              />
+
+              <input
+                id="mobile"
+                type="text"
+                name="mobile"
+                maxLength={10}
+                placeholder="Mobile Number"
+                autoComplete="tel"
+                className="border rounded-lg p-2"
+                onChange={handleChange}
+                required
+              />
+
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                autoComplete="email"
+                className="border rounded-lg p-2"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            {/* Submit Button */}
+
+            <div className="text-center pt-6">
+              <button
+                type="submit"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-lg"
+              >
+                Submit Vehicle Details
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

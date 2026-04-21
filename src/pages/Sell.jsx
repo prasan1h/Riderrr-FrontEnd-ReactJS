@@ -166,8 +166,6 @@ const Sell = () => {
         </div>
       )}
 
-      {data && <Addvehicle data={data} />}
-
       <Footer />
     </>
   );
