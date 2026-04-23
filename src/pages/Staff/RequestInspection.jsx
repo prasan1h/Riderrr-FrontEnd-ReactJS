@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
+import BikeCard from '../../components/Staff/BikeCard';
+
 const RequestInspection = () => {
 
     const [data, setData] = useState([]);
     
-    const url = "http://localhost:8080/api/bike/requestInspect";
+    const url = "http://localhost:8080/api/bike/all";
 
     const fetchData = () => {
         fetch(url)
@@ -22,11 +24,15 @@ const RequestInspection = () => {
 
   return (
     <>
+    <div className='flex flex-wrap bg-blue-100'>
     {
+      
         data.map((bike,index) => (
-            <div key={index} className='text-black'>{bike.model}</div>
+                <BikeCard bike={bike} key={index}/>
+            
         ))
     }
+    </div>
     </>
   )
 }
