@@ -7,8 +7,6 @@ import About from '../pages/About'
 import Contact from '../pages/Contact'
 import RequestInspection from '../pages/Staff/RequestInspection'
 import Addvehicle from '../pages/Staff/Addvehicle'
-import InspectionAdmin from '../pages/Admin/Inspection'
-import InspectionForm from '../pages/Admin/InspectForm'
 
 const CustomRouter = () => {
   return (
@@ -22,6 +20,7 @@ const CustomRouter = () => {
         <Route path='/addvehicle' element={<Addvehicle/>}></Route>
         <Route path='/admin/inspection' element={<InspectionAdmin/>}></Route>
         <Route path='/admin/inspect-form/:id' element={<InspectionForm/>}></Route>
+        <Route path='/InspectVehicle'element={<InspectVehicle/>}></Route>
     </Routes>
   )
 }

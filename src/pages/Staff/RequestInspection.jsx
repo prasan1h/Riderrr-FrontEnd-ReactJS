@@ -6,8 +6,8 @@ import StaffNav from '../../components/StaffNav'
 const RequestInspection = () => {
 
     const [data, setData] = useState([]);
-    const url = "http://localhost:8080/api/bike/all";
-
+    
+    const url = `${import.meta.env.VITE_API_URL}/bike/all`;
     const fetchData = () => {
         fetch(url)
         .then(res => res.json())
