@@ -7,6 +7,9 @@ import About from '../pages/About'
 import Contact from '../pages/Contact'
 import RequestInspection from '../pages/Staff/RequestInspection'
 import Addvehicle from '../pages/Staff/Addvehicle'
+import InspectionAdmin from '../pages/Admin/Inspection'
+import InspectionForm from '../pages/Admin/InspectForm'
+import InspectVehicle from '../pages/Staff/InspectVehicle'
 
 const CustomRouter = () => {
   return (

@@ -20,7 +20,7 @@ function Addvehicle() {
       .catch((err) => console.log(err));
   }
   const brands = Object.keys(data);
-  const url = "http://localhost:8080/api/bike/add";
+  const url = "http://localhost:8080/bike/add";
   // const today = new Date().toISOString().split("T")[0];
   const today = new Date();
   const yesterday = new Date(today);
