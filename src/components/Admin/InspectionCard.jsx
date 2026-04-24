@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Li } from "react";
 import { Heart, Star, CalendarDays, Gauge, Radar } from "lucide-react";
 
 const InspectionCard = ({bike}) => {
@@ -7,7 +7,7 @@ const InspectionCard = ({bike}) => {
     const formURL = "http://localhost:5173";
 
     const inspectById = (id) => {
-        window.open(`${formURL}/admin/inspect-form/${id}`)
+        window.location.href = `/admin/inspect-form/${id}`;
     }
 
     useEffect(() => {
@@ -60,11 +60,13 @@ const InspectionCard = ({bike}) => {
               <p className="text-md">{bike.inspectionDate}</p>
             </div>
 
+            {/* <Link to={`/admin/inspect-form/${bike.id}`}> */}
             <button 
             onClick={() => {inspectById(bike.id)}}
             className="px-5 h-12 rounded-xl font-bold bg-blue-600 text-white">
               Start Inspection
             </button>
+            {/* </Link> */}
           </div>
         </div>
       </div>
