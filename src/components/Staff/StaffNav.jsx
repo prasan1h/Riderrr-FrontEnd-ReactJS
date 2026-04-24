@@ -56,12 +56,12 @@ function StaffNav({ isOpen, setIsOpen }) {
 
           {/* Menu */}
           <div className="p-5 space-y-6">
-            <Link to="#" className="flex items-center gap-3 hover:text-orange-600">
+            <Link to="/requestInspect" className="flex items-center gap-3 hover:text-orange-600">
               <FaClipboardList />
               <span>Requests</span>
             </Link>
 
-            <Link to="#" className="flex items-center gap-3 hover:text-orange-600">
+            <Link to="/InspectVehicle" className="flex items-center gap-3 hover:text-orange-600">
               <FaWrench />
               <span>Inspect</span>
             </Link>

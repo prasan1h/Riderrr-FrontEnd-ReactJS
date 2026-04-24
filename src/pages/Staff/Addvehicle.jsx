@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import StaffNav from "../../components/StaffNav";
+import StaffNav from "../../components/Staff/StaffNav";
 import { FaBars } from "react-icons/fa";
 
 function Addvehicle() {
