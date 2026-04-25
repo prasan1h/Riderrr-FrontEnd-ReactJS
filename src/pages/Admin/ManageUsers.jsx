@@ -24,7 +24,7 @@ const ManageUsers = () => {
 
   // Fetch users
   const fetchUsers = () => {
-    fetch(`${url}/all`)
+    fetch(`${url}/branch/2`)
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((e) => console.log(e));
