@@ -7,7 +7,7 @@ function ContactDetails({
   startsell,
   showstep,
 }) {
-  const url = "http://localhost:8080/api/bike/add";
+  const url = `${import.meta.env.VITE_API_URL}/bike/add`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;

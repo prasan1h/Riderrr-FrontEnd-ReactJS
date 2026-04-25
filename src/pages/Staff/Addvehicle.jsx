@@ -20,7 +20,7 @@ function Addvehicle() {
       .catch((err) => console.log(err));
   }
   const brands = Object.keys(data);
-  const url = "http://localhost:8080/bike/add";
+  const url = `${import.meta.env.VITE_API_URL}/bike/add`;
   // const today = new Date().toISOString().split("T")[0];
   const today = new Date();
   const yesterday = new Date(today);
