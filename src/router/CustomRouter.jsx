@@ -11,6 +11,7 @@ import InspectionAdmin from '../pages/Admin/Inspection'
 import InspectionForm from '../pages/Admin/InspectForm'
 import InspectVehicle from '../pages/Staff/InspectVehicle'
 import ManageUsers from '../pages/Admin/ManageUsers'
+import Branches from '../pages/SuperAdmin/Branches'
 
 const CustomRouter = () => {
   return (
@@ -25,7 +26,8 @@ const CustomRouter = () => {
         <Route path='/admin/inspection' element={<InspectionAdmin/>}></Route>
         <Route path='/admin/inspect-form/:id' element={<InspectionForm/>}></Route>
         <Route path='/InspectVehicle' element={<InspectVehicle/>}></Route>
-        <Route path='/admin/manageusers' element={<ManageUsers/>}></Route>
+        <Route path='/branches/:branchId' element={<ManageUsers/>}></Route>
+        <Route path='/branches' element={<Branches/>}></Route>
     </Routes>
   )
 }
