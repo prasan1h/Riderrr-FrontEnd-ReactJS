@@ -13,6 +13,8 @@ import InspectVehicle from '../pages/Staff/InspectVehicle'
 import VehicleListing from '../pages/Admin/VehicleListing'
 import ViewVehicleById from '../pages/Admin/ViewVehicleById'
 import EditVehicle from '../pages/Admin/EditVehicle'
+import ManageUsers from '../pages/Admin/ManageUsers'
+import Branches from '../pages/SuperAdmin/Branches'
 
 const CustomRouter = () => {
   return (
@@ -30,6 +32,9 @@ const CustomRouter = () => {
         <Route path='/admin/vehiclelist'element={<VehicleListing/>}></Route>
         <Route path='/admin/vehiclelist/:id'element={<ViewVehicleById/>}></Route>
         <Route path='/admin/editvehicle/:id'element={<EditVehicle/>}></Route>
+        <Route path='/InspectVehicle' element={<InspectVehicle/>}></Route>
+        <Route path='/branches/:branchId' element={<ManageUsers/>}></Route>
+        <Route path='/branches' element={<Branches/>}></Route>
     </Routes>
   )
 }
