@@ -10,6 +10,9 @@ import Addvehicle from '../pages/Staff/Addvehicle'
 import InspectionAdmin from '../pages/Admin/Inspection'
 import InspectionForm from '../pages/Admin/InspectForm'
 import InspectVehicle from '../pages/Staff/InspectVehicle'
+import VehicleListing from '../pages/Admin/VehicleListing'
+import ViewVehicleById from '../pages/Admin/ViewVehicleById'
+import EditVehicle from '../pages/Admin/EditVehicle'
 
 const CustomRouter = () => {
   return (
@@ -24,6 +27,9 @@ const CustomRouter = () => {
         <Route path='/admin/inspection' element={<InspectionAdmin/>}></Route>
         <Route path='/admin/inspect-form/:id' element={<InspectionForm/>}></Route>
         <Route path='/InspectVehicle'element={<InspectVehicle/>}></Route>
+        <Route path='/admin/vehiclelist'element={<VehicleListing/>}></Route>
+        <Route path='/admin/vehiclelist/:id'element={<ViewVehicleById/>}></Route>
+        <Route path='/admin/editvehicle/:id'element={<EditVehicle/>}></Route>
     </Routes>
   )
 }

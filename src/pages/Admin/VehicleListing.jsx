@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import InspectionCard from "../../components/Admin/InspectionCard";
 import AdminNav from "../../components/Admin/AdminNav";
+import VehicleListCard from "../../components/Admin/VehicleListCard";
 
-const Inspection = () => {
+const VehicleListing = () => {
   const [data, setData] = useState([]);
   const url = "http://localhost:8080/bike/all";
 
@@ -24,11 +24,14 @@ const Inspection = () => {
     <>
       <AdminNav />
       <div className="relative w-full ">
-        <div  className=" text-black"><p className="absolute left-68 text-3xl">Hello Manager, Start the Inspection...</p></div>
+        <div className=" text-black">
+          <p className="absolute left-68 text-3xl">
+            Vehicles in your list...
+          </p>
+        </div>
         <div className="absolute flex justify-start flex-wrap bg-blue-100 left-64 top-12">
-          
           {data.map((bike, index) => (
-            <InspectionCard bike={bike} key={index} />
+            <VehicleListCard bike={bike} key={index} />
           ))}
         </div>
       </div>
@@ -36,4 +39,4 @@ const Inspection = () => {
   );
 };
 
-export default Inspection;
+export default VehicleListing;
