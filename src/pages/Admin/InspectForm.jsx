@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
+import { toast } from "react-toastify";
+
+import { BsPersonFill } from "react-icons/bs";
+import { FaLocationDot, FaMotorcycle } from "react-icons/fa6";
+import { FaCalendarDay, FaRegEye } from "react-icons/fa";
+import { GrDocumentStore } from "react-icons/gr";
+import { RiGitRepositoryFill } from "react-icons/ri";
+import { BiHide } from "react-icons/bi";
 
 const InspectForm = () => {
   const { id } = useParams();
@@ -59,17 +67,16 @@ const InspectForm = () => {
       method: "PUT",
       body: data,
     })
-    .then((res) => {
-      if (!res.ok) {
-        alert("Failed!!! to update");
-        return;
-      }
-      alert("updated successfully");
-      console.log(formData);
-      window.location.href = "/admin/inspection";
-    })
-    .catch((err) => console.log(err));
-
+      .then((res) => {
+        if (!res.ok) {
+          toast.error("Failed to Update the Info");
+          return;
+        }
+        alert("updated successfully");
+        console.log(formData);
+        window.location.href = "/admin/inspection";
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -77,7 +84,7 @@ const InspectForm = () => {
     fetchInspectionDetails();
   }, []);
 
-  // Inspection report field pairs
+
   const inspectionFields = [
     {
       label: "vehicle AirFilter Condition",
@@ -138,7 +145,6 @@ const InspectForm = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-6 px-4">
       <div className="max-w-3xl mx-auto flex flex-col gap-5">
-        {/* Back Link */}
         <div>
           <Link
             to="/admin/inspection"
@@ -148,9 +154,7 @@ const InspectForm = () => {
           </Link>
         </div>
 
-        {/* Vehicle Header Card */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-          {/* Header Bar */}
           <div className="bg-indigo-600 px-5 py-4 flex items-center justify-between">
             <h1 className="text-white text-xl font-bold">
               {inspectData?.vehicleId?.Brand}{" "}
@@ -161,19 +165,10 @@ const InspectForm = () => {
             </span>
           </div>
 
-          {/* Customer Info Row */}
           <div className="px-5 py-5 grid grid-cols-3 gap-4">
-            {/* Customer */}
             <div className="flex items-start gap-2">
               <div className="mt-0.5 text-indigo-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                </svg>
+                <BsPersonFill />
               </div>
               <div>
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -188,17 +183,9 @@ const InspectForm = () => {
               </div>
             </div>
 
-            {/* Scheduled */}
             <div className="flex items-start gap-2">
               <div className="mt-0.5 text-indigo-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z" />
-                </svg>
+                <FaCalendarDay />
               </div>
               <div>
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -210,17 +197,9 @@ const InspectForm = () => {
               </div>
             </div>
 
-            {/* Location */}
             <div className="flex items-start gap-2">
               <div className="mt-0.5 text-red-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                </svg>
+                <FaLocationDot/>
               </div>
               <div>
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -234,44 +213,32 @@ const InspectForm = () => {
           </div>
         </div>
 
-        {/* Inspection Report Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-          {/* Section Title */}
           <div className="flex items-center gap-2 mb-5">
             <div className="text-indigo-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
-              </svg>
+                <FaMotorcycle/>
             </div>
             <h2 className="text-base font-semibold text-gray-800">
               Vehicle Inspection Report
             </h2>
           </div>
 
-          {/* Inspection Fields Grid */}
           <div className="flex flex-col gap-4">
             {inspectionFields.map((field, idx) => (
               <div key={idx} className="grid grid-cols-2 gap-4">
-                {/* Left field */}
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">
                     {field.label}
                   </label>
-                  <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                  <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                     {inspectData[field.key] || ""}
                   </div>
                 </div>
-                {/* Right field */}
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">
                     {field.label2}
                   </label>
-                  <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                  <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                     {inspectData[field.key2] || ""}
                   </div>
                 </div>
@@ -280,19 +247,10 @@ const InspectForm = () => {
           </div>
         </div>
 
-        {/* Vehicle Data To Update Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-          {/* Section Title */}
           <div className="flex items-center gap-2 mb-5">
             <div className="text-indigo-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
-              </svg>
+                <GrDocumentStore/>
             </div>
             <h2 className="text-base font-semibold text-gray-800">
               Vehicle Data To Update
@@ -300,7 +258,6 @@ const InspectForm = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            {/* Row 1: Outlet Price + Mileage */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
@@ -329,7 +286,6 @@ const InspectForm = () => {
               </div>
             </div>
 
-            {/* Row 2: Visibility + Images */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs text-gray-500 mb-1">
@@ -370,7 +326,6 @@ const InspectForm = () => {
               </div>
             </div>
 
-            {/* Photo Previews */}
             {formData.photos.length > 0 && (
               <div className="grid grid-cols-5 gap-3 mt-1">
                 {formData.photos.map((photo, index) => (
@@ -394,11 +349,12 @@ const InspectForm = () => {
           </div>
         </div>
 
-        {/* Submit Button */}
         <div>
           <button
             type="button"
-            onClick={() => {handleSubmit()}}
+            onClick={() => {
+              handleSubmit();
+            }}
             className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold py-3 rounded-xl transition-colors text-sm tracking-wide shadow-sm"
           >
             Submit Inspection

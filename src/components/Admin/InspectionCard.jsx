@@ -58,14 +58,11 @@ const InspectionCard = ({bike}) => {
               <p className="text-sm text-gray-500">Date :</p>
               <p className="text-md">{bike.inspectionDate}</p>
             </div>
-
-            {/* <Link to={`/admin/inspect-form/${bike.id}`}> */}
             <button 
             onClick={() => {inspectById(bike.id)}}
             className="px-5 h-12 rounded-xl font-bold bg-blue-600 text-white">
               Start Inspection
             </button>
-            {/* </Link> */}
           </div>
         </div>
       </div>

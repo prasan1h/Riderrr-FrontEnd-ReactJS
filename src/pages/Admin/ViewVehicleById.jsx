@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
+import { toast } from "react-toastify";
+
+import { BsPersonFill } from "react-icons/bs";
+import { FaLocationDot, FaMotorcycle } from "react-icons/fa6";
+import { FaCalendarDay, FaRegEye } from "react-icons/fa";
+import { GrDocumentStore } from "react-icons/gr";
+import { RiGitRepositoryFill } from "react-icons/ri";
+import { BiHide } from "react-icons/bi";
+
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import HideVehicleModal from "../../components/Admin/HideVehicleModal";
 import SoldStatusModal from "../../components/Admin/SoldStatusModal";
 import Input from "../../components/Admin/Input";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const ViewVehicleById = () => {
   const { id } = useParams();
@@ -27,6 +42,14 @@ const ViewVehicleById = () => {
       .then((data) => {
         console.log(data);
         setData(data);
+        setSoldFormData({
+          availability: data.vehicleId.Availability,
+          soldDate: data.vehicleId.SoldDate,
+          sellingPrice: data.vehicleId.SellingPrice,
+          customerName: data.vehicleId.customerName,
+          phone: data.vehicleId.customerPhNo,
+          documents: data.vehicleId.documentsGiven,
+        });
       })
       .catch((e) => console.log(e));
   };
@@ -42,11 +65,11 @@ const ViewVehicleById = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          alert("Failed!!! to change the visibility");
+          toast.error("Visibility update unsuccesful");
           return;
         }
-        console.log("hiding the vehicle with id ", id);
         setOpenHideModal(false);
+        toast.info("Visibility have been updated");
         fetchAllDetails();
       })
       .catch((e) => console.log(e));
@@ -63,11 +86,11 @@ const ViewVehicleById = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          alert("Failed!!! to change the visibility");
+          toast.error("Visibility update unsuccesful");
           return;
         }
-        console.log("Unhiding the vehicle with id ", id);
         setOpenHideModal(false);
+        toast.info("Visibility have been updated");
         fetchAllDetails();
       })
       .catch((e) => console.log(e));
@@ -88,7 +111,6 @@ const ViewVehicleById = () => {
   const handleSubmitSold = (e) => {
     e.preventDefault();
 
-
     let data = new FormData();
     data.append("id", id);
     data.append("Availability", soldFormData.availability);
@@ -98,20 +120,21 @@ const ViewVehicleById = () => {
     data.append("customerPhone", soldFormData.phone);
     data.append("documentsGiven", soldFormData.documents);
 
-    fetch(`${url}/bike/manager/soldUpdates`,{
+    fetch(`${url}/bike/manager/soldUpdates`, {
       method: "PUT",
-      body: data
+      body: data,
     })
-    .then((res) => {
-      if(!res.ok){
-        alert("failed to update");
-      }
-      res.json();
-      setOpenSoldModal(false);
-      fetchAllDetails();
-    })
-    .catch(e => console.log(e));
-
+      .then((res) => {
+        if (!res.ok) {
+          toast.error("Failed to mark as sold");
+          return;
+        }
+        res.json();
+        toast.success("Marked as sold");
+        setOpenSoldModal(false);
+        fetchAllDetails();
+      })
+      .catch((e) => console.log(e));
   };
 
   useEffect(() => {
@@ -273,14 +296,7 @@ const ViewVehicleById = () => {
             <div className="px-5 py-5 grid grid-cols-3 gap-4">
               <div className="flex items-start gap-2">
                 <div className="mt-0.5 text-indigo-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                  </svg>
+                  <BsPersonFill />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -297,14 +313,7 @@ const ViewVehicleById = () => {
 
               <div className="flex items-start gap-2">
                 <div className="mt-0.5 text-indigo-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z" />
-                  </svg>
+                  <FaCalendarDay />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -318,14 +327,7 @@ const ViewVehicleById = () => {
 
               <div className="flex items-start gap-2">
                 <div className="mt-0.5 text-red-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                  </svg>
+                  <FaLocationDot />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -342,14 +344,46 @@ const ViewVehicleById = () => {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <div className="flex items-center gap-2 mb-5">
               <div className="text-indigo-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+                <FaMotorcycle />
+              </div>
+              <h2 className="text-base font-semibold text-gray-800">
+                {data?.vehicleId?.Brand} &nbsp; {data?.vehicleId?.Model}
+              </h2>
+            </div>
+            <div className="w-full h-87.5">
+              <div className="w-full h-full bg-blue-100 rounded-xl overflow-hidden">
+                <Swiper
+                  spaceBetween={30}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 2000,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  navigation={true}
+                  modules={[Autoplay]}
+                  className="mySwiper"
                 >
-                  <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
-                </svg>
+                  {data?.vehicleId?.imagePath.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <img
+                        src={`${url}/${img.filePath}`}
+                        className="w-full h-full object-cover"
+                        alt="vehicle image"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div className="flex items-center gap-2 mb-5">
+              <div className="text-indigo-500">
+                <GrDocumentStore />
               </div>
               <h2 className="text-base font-semibold text-gray-800">
                 Vehicle Details
@@ -363,7 +397,7 @@ const ViewVehicleById = () => {
                     <label className="block text-xs text-gray-500 mb-1">
                       {field.label1}
                     </label>
-                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                       {formatValue(data?.vehicleId?.[field.key1])}
                     </div>
                   </div>
@@ -371,7 +405,7 @@ const ViewVehicleById = () => {
                     <label className="block text-xs text-gray-500 mb-1">
                       {field.label2}
                     </label>
-                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                       {formatValue(data?.vehicleId?.[field.key2])}
                     </div>
                   </div>
@@ -379,7 +413,7 @@ const ViewVehicleById = () => {
                     <label className="block text-xs text-gray-500 mb-1">
                       {field.label3}
                     </label>
-                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                       {formatValue(data?.vehicleId?.[field.key3])}
                     </div>
                   </div>
@@ -391,14 +425,7 @@ const ViewVehicleById = () => {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <div className="flex items-center gap-2 mb-5">
               <div className="text-indigo-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
-                </svg>
+                <RiGitRepositoryFill />
               </div>
               <h2 className="text-base font-semibold text-gray-800">
                 Vehicle Inspection Report
@@ -411,7 +438,7 @@ const ViewVehicleById = () => {
                     <label className="block text-xs text-gray-500 mb-1">
                       {field.label1}
                     </label>
-                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                       {formatValue(data?.[field.key1])}
                     </div>
                   </div>
@@ -419,7 +446,7 @@ const ViewVehicleById = () => {
                     <label className="block text-xs text-gray-500 mb-1">
                       {field.label2}
                     </label>
-                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                       {formatValue(data?.[field.key2])}
                     </div>
                   </div>
@@ -427,7 +454,7 @@ const ViewVehicleById = () => {
                     <label className="block text-xs text-gray-500 mb-1">
                       {field.label3}
                     </label>
-                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-[36px]">
+                    <div className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-gray-50 min-h-9">
                       {formatValue(data?.[field.key3])}
                     </div>
                   </div>
@@ -461,7 +488,7 @@ const ViewVehicleById = () => {
                   isOpen={openHideModal}
                   onClose={() => setOpenHideModal(false)}
                 >
-                  <div>
+                  <div className="flex flex-col gap-4">
                     <div>
                       <p>Hide Vehicle ?</p>
                     </div>
@@ -472,10 +499,23 @@ const ViewVehicleById = () => {
                       </p>
                     </div>
                     <div className="flex justify-evenly">
-                      <button onClick={() => setOpenHideModal(false)}>
-                        Close
+                      <button
+                        onClick={() => setOpenHideModal(false)}
+                        className="border-2 border-gray-400 px-3 py-1 rounded-xl"
+                      >
+                        ✖ Close
                       </button>
-                      <button onClick={() => hideVehicle()}>Hide</button>
+                      <button
+                        onClick={() => hideVehicle()}
+                        className="border-2 border-gray-400 px-3 py-1 rounded-xl"
+                      >
+                        {" "}
+                        <p className="flex items-center gap-2 text-xl">
+                          {" "}
+                          <BiHide />
+                          Hide{" "}
+                        </p>
+                      </button>
                     </div>
                   </div>
                 </HideVehicleModal>
@@ -494,7 +534,7 @@ const ViewVehicleById = () => {
                   isOpen={openHideModal}
                   onClose={() => setOpenHideModal(false)}
                 >
-                  <div>
+                  <div className="flex flex-col gap-5">
                     <div>
                       <p>Hide Vehicle ?</p>
                     </div>
@@ -505,24 +545,46 @@ const ViewVehicleById = () => {
                       </p>
                     </div>
                     <div className="flex justify-evenly">
-                      <button onClick={() => setOpenHideModal(false)}>
-                        Close
+                      <button
+                        onClick={() => setOpenHideModal(false)}
+                        className="border-2 border-gray-400 px-3 py-1 rounded-xl"
+                      >
+                        ✖ Close
                       </button>
-                      <button onClick={() => unHideVehicle()}>Unhide</button>
+                      <button
+                        onClick={() => unHideVehicle()}
+                        className="border-2 border-gray-400 px-3 py-1 rounded-xl"
+                      >
+                        {" "}
+                        <p className="flex items-center gap-2 text-xl">
+                          {" "}
+                          <FaRegEye />
+                          Unhide{" "}
+                        </p>
+                      </button>
                     </div>
                   </div>
                 </HideVehicleModal>
               </>
             )}
 
-            {data?.vehicleId?.Availability == true ? <p>mark sold btn</p> : ""}
-            <button
-              type="button"
-              onClick={() => setOpenSoldModal(true)}
-              className="px-3 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-3 rounded-xl transition-colors text-sm tracking-wide shadow-sm"
-            >
-              Mark As Sold
-            </button>
+            {data?.vehicleId?.Availability != "SOLD" ? (
+              <button
+                type="button"
+                onClick={() => setOpenSoldModal(true)}
+                className="px-3 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-3 rounded-xl transition-colors text-sm tracking-wide shadow-sm"
+              >
+                Mark As Sold
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setOpenSoldModal(true)}
+                className="px-3 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-3 rounded-xl transition-colors text-sm tracking-wide shadow-sm"
+              >
+                Edit Sold Details
+              </button>
+            )}
 
             <SoldStatusModal
               isOpen={openSoldModal}
@@ -546,13 +608,14 @@ const ViewVehicleById = () => {
                     onSubmit={handleSubmitSold}
                     className="grid grid-cols-1 md:grid-cols-2 gap-6"
                   >
-
                     <div className="space-y-4">
                       <Input
                         label="Vehicle Availability"
                         name="availability"
                         value={soldFormData.availability}
                         onChange={handleChangeSold}
+                        inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 disabled:bg-gray-100"
+                        labelClass="block text-sm font-medium mb-1"
                         disabled
                       />
 
@@ -562,6 +625,8 @@ const ViewVehicleById = () => {
                         placeholder="Enter customer name"
                         value={soldFormData.customerName}
                         onChange={handleChangeSold}
+                        inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 disabled:bg-gray-100"
+                        labelClass="block text-sm font-medium mb-1"
                       />
 
                       <div>
@@ -588,6 +653,8 @@ const ViewVehicleById = () => {
                         name="soldDate"
                         value={soldFormData.soldDate}
                         onChange={handleChangeSold}
+                        inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 disabled:bg-gray-100"
+                        labelClass="block text-sm font-medium mb-1"
                       />
 
                       <Input
@@ -596,6 +663,8 @@ const ViewVehicleById = () => {
                         placeholder="Enter selling price"
                         value={soldFormData.sellingPrice}
                         onChange={handleChangeSold}
+                        inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 disabled:bg-gray-100"
+                        labelClass="block text-sm font-medium mb-1"
                       />
 
                       <Input
@@ -604,13 +673,15 @@ const ViewVehicleById = () => {
                         placeholder="Enter phone number"
                         value={soldFormData.phone}
                         onChange={handleChangeSold}
+                        inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 disabled:bg-gray-100"
+                        labelClass="block text-sm font-medium mb-1"
                       />
                     </div>
 
                     <div className="col-span-1 md:col-span-2 mt-4">
                       <button
                         type="submit"
-                        className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
+                        className="w-full bg-linear-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
                       >
                         Submit
                       </button>

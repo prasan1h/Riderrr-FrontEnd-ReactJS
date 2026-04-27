@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
   Heart,
   Star,
@@ -16,7 +17,7 @@ import {
 } from "lucide-react";
 
 const BikeCard = ({ bike }) => {
-  const url = "http://localhost:8080";
+  const url = `${import.meta.env.VITE_API_URL}`;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -28,23 +29,23 @@ const BikeCard = ({ bike }) => {
     setCurrentIndex((prev) => (prev === 0 ? bike.images.length - 1 : prev - 1));
   };
 
-  const updateStatus = (id , status) => {
+  const updateStatus = (id, status) => {
     let data = new FormData();
-    // let APPROVED = "APPROVED";
     data.append("id", id);
     data.append("status", status);
     try {
-      fetch(`${url}/api/bike/status`, {
+      fetch(`${url}/bike/status`, {
         method: "PUT",
         body: data,
       })
         .then((res) => {
           if (!res.ok) {
-            alert("failed to update");
+            toast.error("Failed to update the status");
             return;
           }
           res.json();
-          console.log("bike ",status);
+          toast.success("Updated the vehicle status");
+          console.log("bike ", status);
         })
         .catch((e) => console.log("error: ", e));
     } catch (e) {
@@ -54,7 +55,7 @@ const BikeCard = ({ bike }) => {
 
   useEffect(() => {
     console.log("bike card");
-  },[]);
+  }, []);
 
   return (
     <>
@@ -97,36 +98,27 @@ const BikeCard = ({ bike }) => {
 
           <div className="flex flex-col  my-1 text-gray-500">
             <p className="flex gap-3 justify-start items-center">
-              <Motorbike className="bg-gray-200 p-1 rounded-sm" size={20} />{" "}
-              Registration Number :{" "}
+              <Motorbike className="bg-gray-200 p-1 rounded-sm" size={20} />
+              Registration Number :
               <span className="font-semibold text-black">
-                {" "}
                 {bike.registrationNumber}
-              </span>{" "}
+              </span>
             </p>
             <p className="flex gap-3 justify-start items-center">
               <Palette className="bg-gray-200 p-1 rounded-sm" size={20} /> Color
-              :{" "}
-              <span className="font-semibold text-black">
-                {" "}
-                {bike.color}
-              </span>{" "}
+              :<span className="font-semibold text-black">{bike.color}</span>
             </p>
             <p className="flex gap-3 justify-start items-center">
-              <CalendarDays className="bg-gray-200 p-1 rounded-sm" size={20} />{" "}
-              Purchase Date :{" "}
+              <CalendarDays className="bg-gray-200 p-1 rounded-sm" size={20} />
+              Purchase Date :
               <span className="font-semibold text-black">
-                {" "}
                 {bike.purchaseDate}
-              </span>{" "}
+              </span>
             </p>
             <p className="flex gap-3 justify-start items-center">
               <User className="bg-gray-200 p-1 rounded-sm" size={20} /> Owner
-              Type :{" "}
-              <span className="font-semibold text-black">
-                {" "}
-                {bike.ownerType}
-              </span>
+              Type :
+              <span className="font-semibold text-black">{bike.ownerType}</span>
             </p>
           </div>
 
@@ -162,18 +154,16 @@ const BikeCard = ({ bike }) => {
 
           <div className="flex flex-col  my-1 text-gray-500">
             <p className="flex gap-3 justify-start items-center">
-              <CalendarDays className="bg-gray-200 p-1 rounded-sm" size={20} />{" "}
+              <CalendarDays className="bg-gray-200 p-1 rounded-sm" size={20} />
               Requested Date
               <span className="font-semibold text-black">
-                {" "}
                 {bike.inspectionDate}
               </span>
             </p>
             <p className="flex gap-3 justify-start items-center">
-              <MapPin className="bg-gray-200 p-1 rounded-sm" size={20} />{" "}
+              <MapPin className="bg-gray-200 p-1 rounded-sm" size={20} />
               Location
               <span className="font-semibold text-black">
-                {" "}
                 {bike.inspectionBranch}
               </span>
             </p>
@@ -187,13 +177,19 @@ const BikeCard = ({ bike }) => {
 
             <div className="flex gap-2">
               <button
-              onClick={() => {updateStatus(bike.id,"APPROVED")}}
-               className="px-5 h-12 border-2 border-black rounded-xl font-bold bg-green-200">
+                onClick={() => {
+                  updateStatus(bike.id, "APPROVED");
+                }}
+                className="px-5 h-12 border-2 border-black rounded-xl font-bold bg-green-200"
+              >
                 Approve
               </button>
-              <button 
-              onClick={() => {updateStatus(bike.id,"REJECTED")}}
-              className="px-5 h-12 border-2 border-black rounded-xl font-bold bg-red-200">
+              <button
+                onClick={() => {
+                  updateStatus(bike.id, "REJECTED");
+                }}
+                className="px-5 h-12 border-2 border-black rounded-xl font-bold bg-red-200"
+              >
                 Reject
               </button>
             </div>

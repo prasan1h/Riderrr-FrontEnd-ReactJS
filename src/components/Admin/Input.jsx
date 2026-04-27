@@ -7,11 +7,13 @@ const Input = ({
   onChange,
   type = "text",
   placeholder,
+  inputClass,
+  labelClass,
   disabled = false,
 }) => {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1">{label}</label>
+      <label className={labelClass}>{label}</label>
       <input
         type={type}
         name={name}
@@ -19,7 +21,7 @@ const Input = ({
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 disabled:bg-gray-100"
+        className={inputClass}
       />
     </div>
   );

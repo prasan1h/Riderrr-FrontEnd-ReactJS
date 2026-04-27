@@ -49,7 +49,6 @@ const VehicleListCard = ({bike}) => {
               <p className="text-md">{bike.inspectionDate}</p>
             </div>
 
-            {/* <Link to={`/admin/inspect-form/${bike.id}`}> */}
             <button
               onClick={() => {
                 viewBikeById(bike.id);
@@ -58,7 +57,7 @@ const VehicleListCard = ({bike}) => {
             >
               View Details
             </button>
-            {/* </Link> */}
+
           </div>
         </div>
       </div>

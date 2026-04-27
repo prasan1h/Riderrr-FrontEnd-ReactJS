@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
+import { toast } from "react-toastify";
+
+import Input from "../../components/Admin/Input";
 
 const EditVehicle = () => {
   const { id } = useParams();
   const url = `${import.meta.env.VITE_API_URL}`;
 
-  // const [data, setData] = useState([]);
   const [formData, setFormData] = useState({
     brand: "",
     model: "",
@@ -28,7 +30,6 @@ const EditVehicle = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        // setData(data);
         setFormData({
           id: data.id,
           brand: data.brand,
@@ -88,8 +89,9 @@ const EditVehicle = () => {
     })
     .then((res) => {
       if(!res.ok){
-        alert("failed to edit");
+        toast.error("Editing is unsuccessful");
       }
+      else{toast.success("Edited successfully");}
       res.json();
       fetchData();
     })
@@ -101,7 +103,7 @@ const EditVehicle = () => {
       <div className=" bg-gray-100 flex items-center justify-center p-2">
         <div className="bg-white shadow-lg rounded-2xl w-full max-w-5xl p-4">
         <Link
-          to="/admin/vehiclelist"
+          to={`/admin/vehiclelist/${id}`}
           className="text-gray-600 text-sm flex items-center gap-1 hover:text-gray-800 transition-colors"
         >
           ← Back
@@ -117,25 +119,30 @@ const EditVehicle = () => {
             onSubmit={handleSubmit}
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
-            {/* Left Column */}
             <div className="space-y-4">
               <Input
                 label="Vehicle Brand"
                 name="brand"
                 value={formData.brand}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Vehicle Type"
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Vehicle Colour"
                 name="color"
                 value={formData.color}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Purchased Date"
@@ -143,12 +150,16 @@ const EditVehicle = () => {
                 name="purchaseDate"
                 value={formData.purchaseDate}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Owner Type"
                 name="ownerType"
                 value={formData.ownerType}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Inspection Date"
@@ -156,46 +167,59 @@ const EditVehicle = () => {
                 name="inspectionDate"
                 value={formData.inspectionDate}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Mileage"
                 name="Mileage"
                 value={formData.Mileage}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
             </div>
 
-            {/* Right Column */}
             <div className="space-y-4">
               <Input
                 label="Vehicle Model"
                 name="model"
                 value={formData.model}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Model Year"
                 name="modelYear"
                 value={formData.modelYear}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Registration Number"
                 name="registrationNumber"
                 value={formData.registrationNumber}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Purchased Amount"
                 name="PurchasedAmount"
                 value={formData.PurchasedAmount}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
               <Input
                 label="Inspection Branch"
                 name="inspectionBranch"
                 value={formData.inspectionBranch}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
 
               <div>
@@ -218,14 +242,15 @@ const EditVehicle = () => {
                 name="outLetPrice"
                 value={formData.outLetPrice}
                 onChange={handleChange}
+                inputClass="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                labelClass="block text-sm font-medium mb-1"
               />
             </div>
 
-            {/* Button */}
             <div className="col-span-1 md:col-span-2 mt-4">
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
+                className="w-full bg-linear-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
               >
                 Save Changes
               </button>
@@ -235,21 +260,7 @@ const EditVehicle = () => {
       </div>
     </>
   );
-};
-
-function Input({ label, name, value, onChange, type = "text" }) {
-  return (
-    <div>
-      <label className="block text-sm font-medium mb-1">{label}</label>
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
-      />
-    </div>
-  );
 }
+
 
 export default EditVehicle;
