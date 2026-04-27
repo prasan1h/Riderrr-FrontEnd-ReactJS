@@ -17,7 +17,8 @@ const InspectForm = () => {
     photos: [],
     outLetPrice: "",
     mileage: "",
-    visibility: "Not Visible",
+    rating: "",
+    visibility: "",
   });
   const url = `${import.meta.env.VITE_API_URL}`;
 
@@ -59,6 +60,7 @@ const InspectForm = () => {
     data.append("outLetPrice", formData.outLetPrice);
     data.append("isVisible", formData.visibility);
     data.append("Mileage", formData.mileage);
+    data.append("Rating", formData.rating);
     formData.photos.forEach((photo) => {
       data.append("images", photo);
     });
@@ -72,7 +74,7 @@ const InspectForm = () => {
           toast.error("Failed to Update the Info");
           return;
         }
-        alert("updated successfully");
+        toast.success("Updated successfully");
         console.log(formData);
         window.location.href = "/admin/inspection";
       })
@@ -297,8 +299,25 @@ const InspectForm = () => {
                   onChange={handleChange}
                   className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
                 >
-                  <option value="false">Not Visible</option>
-                  <option value="true">Visible</option>
+                  <option value={false}>Not Visible</option>
+                  <option value={true}>Visible</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">
+                  Vehicle Rating
+                </label>
+                <select
+                  name="rating"
+                  value={formData.rating}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                >
+                  <option value="5">5</option>
+                  <option value="4">4</option>
+                  <option value="3">3</option>
+                  <option value="2">2</option>
+                  <option value="1">1</option>
                 </select>
               </div>
               <div>

@@ -178,7 +178,7 @@ const BikeCard = ({ bike }) => {
             <div className="flex gap-2">
               <button
                 onClick={() => {
-                  updateStatus(bike.id, "APPROVED");
+                  updateStatus(bike.id, "DRAFT");
                 }}
                 className="px-5 h-12 border-2 border-black rounded-xl font-bold bg-green-200"
               >
