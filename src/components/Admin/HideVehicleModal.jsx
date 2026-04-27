@@ -18,7 +18,6 @@ const HideVehicleModal = ({ isOpen, onClose, children}) => {
         >
           ✖
         </button>
-        {/* <div>Hi </div> */}
         {children}
       </div>
 

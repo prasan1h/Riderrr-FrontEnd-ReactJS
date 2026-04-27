@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router";
 
 import HideVehicleModal from "../../components/Admin/HideVehicleModal";
 import SoldStatusModal from "../../components/Admin/SoldStatusModal";
+import Input from "../../components/Admin/Input";
 
 const ViewVehicleById = () => {
   const { id } = useParams();
@@ -11,6 +12,14 @@ const ViewVehicleById = () => {
   const [data, setData] = useState([]);
   const [openHideModal, setOpenHideModal] = useState(false);
   const [openSoldModal, setOpenSoldModal] = useState(false);
+  const [soldFormData, setSoldFormData] = useState({
+    availability: "SOLD",
+    soldDate: "",
+    sellingPrice: "",
+    customerName: "",
+    phone: "",
+    documents: "",
+  });
 
   const fetchAllDetails = () => {
     fetch(`${url}/api/inspection/report/${id}`)
@@ -68,9 +77,46 @@ const ViewVehicleById = () => {
     window.location.href = `/admin/editvehicle/${id}`;
   };
 
+  const handleChangeSold = (e) => {
+    const { name, value } = e.target;
+    setSoldFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmitSold = (e) => {
+    e.preventDefault();
+
+
+    let data = new FormData();
+    data.append("id", id);
+    data.append("Availability", soldFormData.availability);
+    data.append("SoldDate", soldFormData.soldDate);
+    data.append("sellingPrice", soldFormData.sellingPrice);
+    data.append("customerName", soldFormData.customerName);
+    data.append("customerPhone", soldFormData.phone);
+    data.append("documentsGiven", soldFormData.documents);
+
+    fetch(`${url}/bike/manager/soldUpdates`,{
+      method: "PUT",
+      body: data
+    })
+    .then((res) => {
+      if(!res.ok){
+        alert("failed to update");
+      }
+      res.json();
+      setOpenSoldModal(false);
+      fetchAllDetails();
+    })
+    .catch(e => console.log(e));
+
+  };
+
   useEffect(() => {
     fetchAllDetails();
-  }, []);
+  }, [openSoldModal]);
 
   const inspectionFields = [
     {
@@ -472,9 +518,6 @@ const ViewVehicleById = () => {
             {data?.vehicleId?.Availability == true ? <p>mark sold btn</p> : ""}
             <button
               type="button"
-              // onClick={() => {
-              //   markAsSold();
-              // }}
               onClick={() => setOpenSoldModal(true)}
               className="px-3 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-3 rounded-xl transition-colors text-sm tracking-wide shadow-sm"
             >
@@ -485,7 +528,96 @@ const ViewVehicleById = () => {
               isOpen={openSoldModal}
               onClose={() => setOpenSoldModal(false)}
             >
-              <div><p>hii</p></div>
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white w-full max-w-3xl rounded-2xl p-8 relative shadow-xl">
+                  <button
+                    onClick={() => setOpenSoldModal(false)}
+                    className="absolute top-4 right-5 text-gray-500 hover:text-gray-700 text-xl"
+                  >
+                    ✕
+                  </button>
+
+                  <div className="flex items-center gap-2 mb-6">
+                    <span className="text-green-600 text-xl">✔</span>
+                    <h2 className="text-2xl font-semibold">Mark As Sold</h2>
+                  </div>
+
+                  <form
+                    onSubmit={handleSubmitSold}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                  >
+
+                    <div className="space-y-4">
+                      <Input
+                        label="Vehicle Availability"
+                        name="availability"
+                        value={soldFormData.availability}
+                        onChange={handleChangeSold}
+                        disabled
+                      />
+
+                      <Input
+                        label="Customer Name"
+                        name="customerName"
+                        placeholder="Enter customer name"
+                        value={soldFormData.customerName}
+                        onChange={handleChangeSold}
+                      />
+
+                      <div>
+                        <label className="block text-sm font-medium mb-1">
+                          Documents Given
+                        </label>
+                        <select
+                          name="documents"
+                          value={soldFormData.documents}
+                          onChange={handleChangeSold}
+                          className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400"
+                        >
+                          <option value="">-- Select Option --</option>
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <Input
+                        label="Vehicle Sold Date"
+                        type="date"
+                        name="soldDate"
+                        value={soldFormData.soldDate}
+                        onChange={handleChangeSold}
+                      />
+
+                      <Input
+                        label="Vehicle Selling Price"
+                        name="sellingPrice"
+                        placeholder="Enter selling price"
+                        value={soldFormData.sellingPrice}
+                        onChange={handleChangeSold}
+                      />
+
+                      <Input
+                        label="Customer Phone Number"
+                        name="phone"
+                        placeholder="Enter phone number"
+                        value={soldFormData.phone}
+                        onChange={handleChangeSold}
+                      />
+                    </div>
+
+                    <div className="col-span-1 md:col-span-2 mt-4">
+                      <button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </SoldStatusModal>
           </div>
         </div>
