@@ -34,7 +34,7 @@ function ModelYear({ vehicleDetails, setVehicleDetails, setStep }) {
               <div
                 key={year}
                 className={`border rounded-xl p-4 text-center cursor-pointer
-                       hover:bg-gray-100 hover:shadow-md transition duration-200
+                       hover:shadow-md transition duration-200
                         ${
                           selected
                             ? "border-secondary bg-secondary text-white shadow-md scale-105"

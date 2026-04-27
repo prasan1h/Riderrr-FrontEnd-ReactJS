@@ -16,6 +16,8 @@ import EditVehicle from '../pages/Admin/EditVehicle'
 import ManageUsers from '../pages/Admin/ManageUsers'
 import Branches from '../pages/SuperAdmin/Branches'
 import Nav from '../components/SuperAdmin/Nav'
+import { LogOut } from 'lucide-react'
+import Login from '../pages/Login'
 
 
 const CustomRouter = () => {
@@ -39,6 +41,7 @@ const CustomRouter = () => {
         <Route path='/admin/manageusers' element={<ManageUsers/>}></Route>
         <Route path='/branches' element={<Branches/>}></Route>
         <Route path='/nav' element={<Nav/>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
     </Routes>
   )
 }
