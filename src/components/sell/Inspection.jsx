@@ -12,13 +12,22 @@ function Inspection({ vehicleDetails, setVehicleDetails, setStep }) {
     }));
   };
 
-  function saveInspectionDetails() {
+  function handleSubmit(e) {
+    e.preventDefault(); // prevent page reload
+
+    if (!vehicleDetails.inspectionDate || !vehicleDetails.inspectionBranch) {
+      return;
+    }
+
     setStep(10);
   }
 
   return (
-    <div id="step-9" className="px-5 sm:px-10 py-8 max-w-xl mx-auto">
-
+    <form
+      id="step-9"
+      onSubmit={handleSubmit}
+      className="px-5 sm:px-10 py-8 max-w-xl mx-auto"
+    >
       <p className="text-2xl sm:text-3xl font-bold pb-8">
         Inspection Details
       </p>
@@ -55,9 +64,9 @@ function Inspection({ vehicleDetails, setVehicleDetails, setStep }) {
         <option value="Jayanagar">Jayanagar, Bengaluru</option>
       </select>
 
-      {/* Continue Button */}
+      {/* Submit Button */}
       <button
-        onClick={saveInspectionDetails}
+        type="submit"
         disabled={
           !vehicleDetails.inspectionDate || !vehicleDetails.inspectionBranch
         }
@@ -70,8 +79,7 @@ function Inspection({ vehicleDetails, setVehicleDetails, setStep }) {
       >
         Continue
       </button>
-
-    </div>
+    </form>
   );
 }
 

@@ -11,12 +11,22 @@ function PurchaseDetails({ vehicleDetails, setVehicleDetails, setStep }) {
     }));
   }
 
-  function savePurchaseDetails() {
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!vehicleDetails.purchasedDate || !vehicleDetails.purchasedAmount) {
+      return;
+    }
+
     setStep(7);
   }
 
   return (
-    <div id="step-6" className="px-5 sm:px-10 py-8 max-w-xl mx-auto">
+    <form
+      id="step-6"
+      onSubmit={handleSubmit}
+      className="px-5 sm:px-10 py-8 max-w-xl mx-auto"
+    >
 
       <p className="text-2xl sm:text-3xl font-bold pb-6 sm:pb-8">
         Enter Purchase Details
@@ -49,16 +59,21 @@ function PurchaseDetails({ vehicleDetails, setVehicleDetails, setStep }) {
         className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl focus:outline-none focus:border-secondary"
       />
 
-      {/* Continue Button */}
+      {/* Submit Button */}
       <button
-        onClick={savePurchaseDetails}
-        className="mt-8 w-full bg-secondary text-white py-3 rounded-xl font-semibold text-lg hover:opacity-90 transition-all"
+        type="submit"
         disabled={!vehicleDetails.purchasedDate || !vehicleDetails.purchasedAmount}
+        className={`mt-8 w-full py-3 rounded-xl font-semibold text-lg transition
+        ${
+          vehicleDetails.purchasedDate && vehicleDetails.purchasedAmount
+            ? "bg-secondary text-white hover:opacity-90"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+        }`}
       >
         Continue
       </button>
 
-    </div>
+    </form>
   );
 }
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
 
-function BranchForm({ isOpen, onClose, onSuccess, mode , data }) {
+function BranchForm({ isOpen, onClose, onSuccess, mode, data }) {
   const url = `${import.meta.env.VITE_API_URL}/branch`;
 
   const [formData, setFormData] = useState({
@@ -61,9 +61,15 @@ function BranchForm({ isOpen, onClose, onSuccess, mode , data }) {
       })
       .then(() => {
         toast.success(
-          mode === "add"
-            ? "Branch added successfully"
-            : "Branch updated successfully",
+          mode === "add" ? (
+            <span className="text-green-600 font-semibold">
+              Branch added successfully
+            </span>
+          ) : (
+            <span className="text-green-600 font-semibold">
+              Branch updated successfully
+            </span>
+          ),
         );
         onSuccess();
         onClose();
@@ -84,7 +90,7 @@ function BranchForm({ isOpen, onClose, onSuccess, mode , data }) {
         address: "",
       });
     }
-  }, [isOpen,mode]);
+  }, [isOpen, mode]);
 
   if (!isOpen) return null;
 

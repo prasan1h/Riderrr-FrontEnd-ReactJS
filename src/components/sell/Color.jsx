@@ -36,7 +36,7 @@ function Color({ vehicleDetails,setVehicleDetails, setStep }) {
             return (
               <div
                 key={color.name}
-                className={`border rounded-xl p-6 flex flex-col items-center cursor-pointer hover:bg-gray-100 hover:text-secondary hover:shadow-md transition
+                className={`border rounded-xl p-6 flex flex-col items-center cursor-pointer  hover:shadow-md transition
                ${
                  selected
                    ? "border-secondary bg-secondary text-white shadow-md scale-105"
