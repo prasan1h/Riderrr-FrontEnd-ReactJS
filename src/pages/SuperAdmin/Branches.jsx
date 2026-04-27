@@ -4,6 +4,7 @@ import { FiPlus, FiSearch } from "react-icons/fi";
 import SuperAdminNav from "../../components/SuperAdmin/SuperAdminNav";
 import BranchCard from "../../components/SuperAdmin/BranchCard";
 import BranchForm from "../../components/SuperAdmin/BranchForm";
+import { toast } from "react-toastify";
 
 
 function Branches() {
@@ -38,6 +39,7 @@ function Branches() {
       .then(() => {
         setBranches((prev) => prev.filter((b) => b.id !== id));
         // fetchBranches();
+        toast.success("Branch deleted successfully");
       })
       .catch((e) => {
         console.error(e);

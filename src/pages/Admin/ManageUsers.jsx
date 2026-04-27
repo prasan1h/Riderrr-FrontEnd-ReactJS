@@ -21,7 +21,9 @@ const ManageUsers = () => {
     fetch(`${url}/all`)
       .then((res) => res.json())
       .then((data) => setUsers(data))
-      .catch((e) => console.log(e));
+      .catch((e) => {console.log(e);
+        toast.error('Failed to fetch users')
+      });
   };
 
   // const fetchUsers = () => {
@@ -50,7 +52,7 @@ const ManageUsers = () => {
       .then(() => {
         toast.success("User deleted successfully");
 
-        //instant UI update
+        //UI update
         setUsers((prev) => prev.filter((u) => u.id !== id));
       })
       .catch((e) => {
