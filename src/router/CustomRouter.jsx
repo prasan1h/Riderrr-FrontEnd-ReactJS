@@ -15,6 +15,8 @@ import ViewVehicleById from '../pages/Admin/ViewVehicleById'
 import EditVehicle from '../pages/Admin/EditVehicle'
 import ManageUsers from '../pages/Admin/ManageUsers'
 import Branches from '../pages/SuperAdmin/Branches'
+import Nav from '../components/SuperAdmin/Nav'
+
 
 const CustomRouter = () => {
   return (
@@ -34,7 +36,9 @@ const CustomRouter = () => {
         <Route path='/admin/editvehicle/:id'element={<EditVehicle/>}></Route>
         <Route path='/InspectVehicle' element={<InspectVehicle/>}></Route>
         <Route path='/branches/:branchId' element={<ManageUsers/>}></Route>
+        <Route path='/admin/manageusers' element={<ManageUsers/>}></Route>
         <Route path='/branches' element={<Branches/>}></Route>
+        <Route path='/nav' element={<Nav/>}></Route>
     </Routes>
   )
 }

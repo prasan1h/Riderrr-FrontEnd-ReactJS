@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 function ContactDetails({
   vehicleDetails,
@@ -53,6 +54,7 @@ function ContactDetails({
           alert("Try again");
           return;
         }
+        toast.success("vehicle added");
       })
       .catch((err) => console.log(err));
 

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import StaffNav from "../../components/Staff/StaffNav";
 import { FaBars } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 function Addvehicle() {
   const [data, setdata] = useState({});
@@ -17,7 +18,9 @@ function Addvehicle() {
       .then((data) => {
         setdata(data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {console.log(err);
+        toast.error("Failed to fetch vehicle data")
+      });
   }
   const brands = Object.keys(data);
   const url = `${import.meta.env.VITE_API_URL}/bike/add`;
@@ -99,10 +102,10 @@ function Addvehicle() {
     })
       .then((res) => {
         if (!res.ok) {
-          alert("Try again");
+          toast.alert("Try again");
           return;
         }
-        alert("Vehicle added successfully");
+        toast.success("Vehicle added successfully");
         console.log(formData);
       })
       .catch((err) => console.log(err));
