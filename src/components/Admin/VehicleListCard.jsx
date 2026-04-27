@@ -1,9 +1,8 @@
 import React, { useEffect, Li } from "react";
 import { Heart, Star, CalendarDays, Gauge, Radar } from "lucide-react";
 
-const VehicleListCard = ({bike}) => {
-  const url = "http://localhost:8080";
-  const formURL = "http://localhost:5173";
+const VehicleListCard = ({ bike }) => {
+  const url = `${import.meta.env.VITE_API_URL}`;
 
   const viewBikeById = (id) => {
     window.location.href = `/admin/vehiclelist/${id}`;
@@ -57,7 +56,6 @@ const VehicleListCard = ({bike}) => {
             >
               View Details
             </button>
-
           </div>
         </div>
       </div>

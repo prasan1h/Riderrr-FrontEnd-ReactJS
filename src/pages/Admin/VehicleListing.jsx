@@ -6,10 +6,11 @@ import { FaMotorcycle } from "react-icons/fa6";
 
 const VehicleListing = () => {
   const [data, setData] = useState([]);
-  const url = "http://localhost:8080/bike/all";
+
+  const url = `${import.meta.env.VITE_API_URL}`;
 
   const fetchData = () => {
-    fetch(url)
+    fetch(`${url}/bike/all`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);

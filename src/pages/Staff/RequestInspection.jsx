@@ -8,9 +8,9 @@ import {  FaMotorcycle } from "react-icons/fa6";
 const RequestInspection = () => {
   const [data, setData] = useState([]);
 
-  const url = `${import.meta.env.VITE_API_URL}/bike/all`;
+  const url = `${import.meta.env.VITE_API_URL}`;
   const fetchData = () => {
-    fetch(url)
+    fetch(`${url}/bike/all`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
