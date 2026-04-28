@@ -43,7 +43,7 @@ const ViewVehicleById = () => {
         console.log(data);
         setData(data);
         setSoldFormData({
-          availability: data.vehicleId.Availability,
+          availability: "SOLD",
           soldDate: data.vehicleId.SoldDate,
           sellingPrice: data.vehicleId.SellingPrice,
           customerName: data.vehicleId.customerName,

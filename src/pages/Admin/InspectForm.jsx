@@ -56,6 +56,7 @@ const InspectForm = () => {
 
   const handleSubmit = () => {
     let data = new FormData();
+
     data.append("id", id);
     data.append("outLetPrice", formData.outLetPrice);
     data.append("isVisible", formData.visibility);
@@ -74,9 +75,31 @@ const InspectForm = () => {
           toast.error("Failed to Update the Info");
           return;
         }
+        updateStatus();
         toast.success("Updated successfully");
         console.log(formData);
-        window.location.href = "/admin/inspection";
+        // window.location.href = "/admin/inspection";
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const updateStatus = () => {
+    let status = new FormData();
+
+    status.append("id", id);
+    status.append("status", "ACCEPTED");
+
+        fetch(`${url}/bike/status`, {
+      method: "PUT",
+      body: status,
+    })
+      .then((res) => {
+        if (!res.ok) {
+          toast.error("Failed to Update the Status");
+          return;
+        }
+        toast.success("Updated status successfully");
+        console.log(formData);
       })
       .catch((err) => console.log(err));
   };
@@ -85,7 +108,6 @@ const InspectForm = () => {
     console.log(id);
     fetchInspectionDetails();
   }, []);
-
 
   const inspectionFields = [
     {
@@ -201,7 +223,7 @@ const InspectForm = () => {
 
             <div className="flex items-start gap-2">
               <div className="mt-0.5 text-red-500">
-                <FaLocationDot/>
+                <FaLocationDot />
               </div>
               <div>
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -218,7 +240,7 @@ const InspectForm = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
           <div className="flex items-center gap-2 mb-5">
             <div className="text-indigo-500">
-                <FaMotorcycle/>
+              <FaMotorcycle />
             </div>
             <h2 className="text-base font-semibold text-gray-800">
               Vehicle Inspection Report
@@ -252,7 +274,7 @@ const InspectForm = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
           <div className="flex items-center gap-2 mb-5">
             <div className="text-indigo-500">
-                <GrDocumentStore/>
+              <GrDocumentStore />
             </div>
             <h2 className="text-base font-semibold text-gray-800">
               Vehicle Data To Update
@@ -281,9 +303,10 @@ const InspectForm = () => {
                 <input
                   type="text"
                   name="mileage"
+                  placeholder="Enter Mileage"
                   value={formData.mileage}
                   onChange={handleChange}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent placeholder-gray-400"
                 />
               </div>
             </div>
@@ -297,8 +320,9 @@ const InspectForm = () => {
                   name="visibility"
                   value={formData.visibility}
                   onChange={handleChange}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent "
                 >
+                  <option value="">select here</option>
                   <option value={false}>Not Visible</option>
                   <option value={true}>Visible</option>
                 </select>
@@ -313,6 +337,7 @@ const InspectForm = () => {
                   onChange={handleChange}
                   className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
                 >
+                  <option value="">select here</option>
                   <option value="5">5</option>
                   <option value="4">4</option>
                   <option value="3">3</option>

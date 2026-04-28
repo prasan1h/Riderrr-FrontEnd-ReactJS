@@ -18,6 +18,7 @@ import Branches from '../pages/SuperAdmin/Branches'
 import Nav from '../components/SuperAdmin/Nav'
 import { LogOut } from 'lucide-react'
 import Login from '../pages/Login'
+import ViewBike from '../pages/Web/ViewBike'
 
 
 const CustomRouter = () => {
@@ -42,6 +43,7 @@ const CustomRouter = () => {
         <Route path='/branches' element={<Branches/>}></Route>
         <Route path='/nav' element={<Nav/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
+        <Route path='/buy/:id' element={<ViewBike/>}></Route>
     </Routes>
   )
 }
