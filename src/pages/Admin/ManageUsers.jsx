@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FaUserPlus, FaEdit, FaTrash, FaUser, FaBars } from "react-icons/fa";
-import AdminNav from "../../components/Admin/AdminNav";
 import SuperAdminNav from "../../components/SuperAdmin/SuperAdminNav";
 import { toast } from "react-toastify";
 import UserForm from "../../components/Admin/UserForm";
 import { useParams } from "react-router";
+import { Link } from "react-router";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -18,7 +18,7 @@ const ManageUsers = () => {
   const url = `${import.meta.env.VITE_API_URL}/user`;
   // Fetch users
   const fetchUsers = () => {
-    fetch(`${url}/all`)
+    fetch(`${url}/branch/${branchId}`)
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((e) => {console.log(e);
@@ -83,7 +83,7 @@ const ManageUsers = () => {
         </button>
       </div>
 
-      <AdminNav isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SuperAdminNav isOpen={isOpen} setIsOpen={setIsOpen} />
       {/* { role=== "SUPERADMIN" &&<SuperAdminNav isOpen={isOpen} setIsOpen={setIsOpen} />} */}
       
 
@@ -100,6 +100,14 @@ const ManageUsers = () => {
           >
             <FaUserPlus /> Add Employee
           </button>
+        </div>
+        <div className="py-5">
+          <Link
+            to="/branches"
+            className="text-gray-600 text-lg flex items-center gap-1 hover:text-gray-800 transition-colors"
+          >
+            ← Back
+          </Link>
         </div>
 
         {/* Table */}
@@ -166,6 +174,7 @@ const ManageUsers = () => {
         mode={mode}
         data={selectedUser}
         onSuccess={fetchUsers}
+        BranchId={branchId}
       />
     </>
   );
