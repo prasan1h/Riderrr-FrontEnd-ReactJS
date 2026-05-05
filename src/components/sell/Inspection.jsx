@@ -58,10 +58,10 @@ function Inspection({ vehicleDetails, setVehicleDetails, setStep }) {
         className="w-full border-2 border-gray-200 py-3 px-4 rounded-xl focus:outline-none focus:border-secondary"
       >
         <option value="">- select Location -</option>
-        <option value="Jalhalli">Jalhalli, Bengaluru</option>
-        <option value="Koramangala">Koramangala, Bengaluru</option>
-        <option value="Whitefield">Whitefield, Bengaluru</option>
-        <option value="Jayanagar">Jayanagar, Bengaluru</option>
+        <option value="JALAHALLI">Jalhalli, Bengaluru</option>
+        <option value="KORAMANGALA">Koramangala, Bengaluru</option>
+        <option value="WHITEFIELD">Whitefield, Bengaluru</option>
+        <option value="JAYANAGAR">Jayanagar, Bengaluru</option>
       </select>
 
       {/* Submit Button */}

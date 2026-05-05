@@ -30,7 +30,7 @@ function UserForm({ isOpen, onClose, mode, data, onSuccess }) {
 
   // Reset (add)
   useEffect(() => {
-    if (mode === "add") {
+    if (mode === "add" && isOpen) {
       setFormData({
         id: "",
         name: "",
@@ -40,7 +40,7 @@ function UserForm({ isOpen, onClose, mode, data, onSuccess }) {
         password: "",
       });
     }
-  }, [mode]);
+  }, [mode,isOpen]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

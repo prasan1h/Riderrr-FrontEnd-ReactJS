@@ -17,16 +17,38 @@ function Branches() {
   const [mode, setMode] = useState("add");
 
   //Fetch all branches
-  const fetchBranches = () => {
-    fetch(`${url}/all`)
-      .then((res) => res.json())
-      .then((data) => setBranches(data))
-      .catch((e) => console.log(e));
-  };
+  // const fetchBranches = () => {
+  //   fetch(`${url}/all`)
+  //     .then((res) => res.json())
+  //     .then((data) => setBranches(data))
+  //     .catch((e) => console.log(e));
+  // };
+
+  const fetchBranches = (keyword = "") => {
+  const endpoint = keyword.trim()
+    ? `${url}/search?keyword=${encodeURIComponent(keyword)}`
+    : `${url}/all`;
+
+  fetch(endpoint)
+    .then((res) => res.json())
+    .then((data) => setBranches(data))
+    .catch((e) => console.log(e));
+};
+
 
   useEffect(() => {
     fetchBranches();
   }, []);
+
+  useEffect(() => {
+  const delayDebounce = setTimeout(() => {
+    fetchBranches(search);
+  }, 500); // debounce to avoid continuous calls
+
+  return () => clearTimeout(delayDebounce);
+}, [search]);
+
+
 
   const handleDelete = (id) => {
     if (!window.confirm("Are you sure you want to delete this branch?")) return;
