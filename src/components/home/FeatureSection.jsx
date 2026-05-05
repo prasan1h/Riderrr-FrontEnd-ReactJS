@@ -1,8 +1,8 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import {Link } from 'react-router'
-import {ArrowRight} from 'lucide-react'
+import { Link } from "react-router";
+import { ArrowRight } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,17 +12,32 @@ import "swiper/css/scrollbar";
 import FeaturedCard from "./FeaturedCard";
 
 const FeatureSection = () => {
+  const url = `${import.meta.env.VITE_API_URL}`;
+
+  const [dataList, setDataList] = useState([]);
+
+  useEffect(() => {
+    fetch(`${url}/bike/findRecent`)
+      .then((res) => res.json())
+      .then((data) => {
+        setDataList(data);
+        console.log(data);
+      });
+  }, []);
+
   return (
     <>
       <section className="flex flex-col max-w-6xl overflow-hidden mx-auto py-14">
         <div className="flex flex-col justify-center items-center py-4">
           <div className="flex justify-start items-center w-full  ">
-            <p className="text-4xl font-medium text-secondary">Fresh Arrivals</p>
+            <p className="text-4xl font-medium text-secondary">
+              Fresh Arrivals
+            </p>
           </div>
           <div className="flex w-full justify-between text-secondary">
             <p>Handpicked bikes verified for quality and price.</p>
             <Link to="/buy" className="flex">
-              View All Inventory <ArrowRight/>
+              View All Inventory <ArrowRight />
             </Link>
           </div>
         </div>
@@ -41,30 +56,14 @@ const FeatureSection = () => {
               swiper.autoplay.start();
             }}
           >
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <FeaturedCard />
-            </SwiperSlide>
+
+            {
+              dataList.map((bike,index) => (
+                <SwiperSlide>
+                  <FeaturedCard bike={bike} key={index} />
+                </SwiperSlide>
+              ))
+            }
           </Swiper>
         </div>
       </section>

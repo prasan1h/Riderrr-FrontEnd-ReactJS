@@ -15,8 +15,8 @@ const BikeCardBuy = ({bike}) => {
     <>
       <div className="flex flex-col justify-between border-2 border-gray-300 rounded-xl bg-white w-75 m-2">
         <div className="flex justify-center items-center relative">
-          <p className="absolute flex bg-white rounded-full right-1 top-1 p-1 opacity-60">
-            <Heart size={18} />
+          <p className="absolute text-white text-sm flex bg-secondary rounded-full right-1 top-1 px-2 px-1">
+            Verified
           </p>
 
           <img

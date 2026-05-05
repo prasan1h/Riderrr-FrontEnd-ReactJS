@@ -3,6 +3,8 @@ import logo from '../assets/logo/logo_white.png'
 import {Camera} from 'lucide-react'
 import { Link } from 'react-router'
 import { FaInstagram } from "react-icons/fa";
+import { FiFacebook } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -54,9 +56,9 @@ const Footer = () => {
                                 <p>support@reride.com</p>
                             </div>
                             <div className="flex gap-8">
-                                <Link to="https://www.facebook.com/" target="_blank"><Camera /></Link>
+                                <Link to="https://www.facebook.com/" target="_blank"><FiFacebook size={24}/></Link>
                                 <Link to="https://www.instagram.com/?hl=en" target="_blank"><FaInstagram size={24}/></Link>
-                                <Link to="https://x.com/" target="_blank"><Camera /></Link>
+                                <Link to="https://x.com/" target="_blank"><FaXTwitter size={24}/></Link>
                             </div>
                         </div>
                     </div>

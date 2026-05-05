@@ -14,6 +14,7 @@ import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import BookNowModal from "../../components/buy/BookNowModal";
 import TestRideModal from "../../components/buy/TestRideModal";
+import ConfirmBookModal from "../../components/buy/ConfirmBookModal";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -28,7 +29,15 @@ const ViewBike = () => {
 
   const [data, setData] = useState([]);
   const [openBookNow, setOpenBookNow] = useState(false);
+  const [bookConfirm, setBookConfirm] = useState(false);
   const [openTestRide, setOpenTestRide] = useState(false);
+  const [bookForm, setBookForm] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    date: "",
+    time: ""
+  });
   const [testForm, setTestForm] = useState({
     name: "",
   });
@@ -46,16 +55,20 @@ const ViewBike = () => {
   };
 
   const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setTestForm({ ...testForm, [e.target.name]: e.target.value });
+
+    const handleChangeBook = (e) =>
+    setBookForm({ ...bookForm, [e.target.name]: e.target.value });
 
   const handleSubmit = () => {
-    console.log(form);
+    console.log(testForm);
     onClose();
   };
 
   const handleSubmitBook = () => {
-    console.log(form);
-    onClose();
+    console.log("bookForm ",bookForm);
+    setOpenBookNow(false);
+    setBookConfirm(true);
   };
 
   useEffect(() => {
@@ -79,7 +92,7 @@ const ViewBike = () => {
         </div>
         <div className="max-w-6xl mx-auto flex gap-6">
           <div className="flex-1 space-y-6">
-            <div className="bg-white p-5 rounded-2xl shadow-sm">
+            <div className="bg-white p-5 rounded-2xl shadow-sm ">
               <div className="space-y-2 mb-4">
                 <p className="text-xs font-semibold bg-blue-100 text-blue-800 px-3 py-1 inline-block rounded-full">
                   Riderrr Certified
@@ -214,7 +227,7 @@ const ViewBike = () => {
           </div>
 
           <div className="w-[320px]">
-            <div className="bg-white p-5 rounded-2xl shadow-sm top-6">
+            <div className="bg-white p-5 rounded-2xl shadow-sm top-6 sticky">
               <div className="mb-4">
                 <p className="text-sm text-gray-500">Total Price</p>
                 <p className="text-3xl font-bold text-blue-900">
@@ -253,9 +266,10 @@ const ViewBike = () => {
                       <input
                         type="text"
                         name="name"
-                        value={testForm.name}
-                        onChange={handleChange}
+                        value={bookForm.name}
+                        onChange={handleChangeBook}
                         className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
+                        required
                       />
                     </div>
 
@@ -266,9 +280,10 @@ const ViewBike = () => {
                       <input
                         type="tel"
                         name="mobile"
-                        value={testForm.mobile}
-                        onChange={handleChange}
+                        value={bookForm.mobile}
+                        onChange={handleChangeBook}
                         className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
+                        required
                       />
                     </div>
 
@@ -279,9 +294,10 @@ const ViewBike = () => {
                       <input
                         type="email"
                         name="email"
-                        value={testForm.email}
-                        onChange={handleChange}
+                        value={bookForm.email}
+                        onChange={handleChangeBook}
                         className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
+                        required
                       />
                     </div>
 
@@ -293,9 +309,10 @@ const ViewBike = () => {
                         <input
                           type="date"
                           name="date"
-                          value={testForm.date}
-                          onChange={handleChange}
+                          value={bookForm.date}
+                          onChange={handleChangeBook}
                           className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
+                          required
                         />
                       </div>
                       <div>
@@ -307,39 +324,22 @@ const ViewBike = () => {
                           name="time"
                           min="09:00"
                           max="20:00"
-                          value={testForm.time}
+                          value={bookForm.time}
                           onChange={(e) => {
                             const val = e.target.value;
-                            if (!val) return handleChange(e);
+                            if (!val) return handleChangeBook(e);
 
                             const [hours, minutes] = val.split(":").map(Number);
                             const totalMinutes = hours * 60 + minutes;
 
                             if (totalMinutes >= 540 && totalMinutes <= 1200) {
-                              handleChange(e);
+                              handleChangeBook(e);
                             }
                           }}
                           className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
+                          required
                         />
                       </div>
-                    </div>
-
-                    <div className="mb-6">
-                      <label className="block text-sm text-gray-600 mb-1">
-                        Preferred Branch *
-                      </label>
-                      <select
-                        name="branch"
-                        value={testForm.branch}
-                        onChange={handleChange}
-                        className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900 bg-white"
-                      >
-                        <option value="">Select a branch</option>
-                        <option>Jalahalli</option>
-                        <option>Koramangala</option>
-                        <option>Whitefield</option>
-                        <option>Marathahalli</option>
-                      </select>
                     </div>
 
                     <button
@@ -350,6 +350,14 @@ const ViewBike = () => {
                     </button>
                   </div>
                 </BookNowModal>
+
+                <ConfirmBookModal
+                  isOpen={bookConfirm}
+                  onClose={() => setBookConfirm(false)}
+                  bookForm={bookForm}
+                  setBookForm={setBookForm}
+                  bike={data} 
+                />
 
                 <button
                   onClick={() => setOpenTestRide(true)}
@@ -452,26 +460,8 @@ const ViewBike = () => {
                       </div>
                     </div>
 
-                    <div className="mb-6">
-                      <label className="block text-sm text-gray-600 mb-1">
-                        Preferred Branch *
-                      </label>
-                      <select
-                        name="branch"
-                        value={testForm.branch}
-                        onChange={handleChange}
-                        className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900 bg-white"
-                      >
-                        <option value="">Select a branch</option>
-                        <option>Jalahalli</option>
-                        <option>Koramangala</option>
-                        <option>Whitefield</option>
-                        <option>Marathahalli</option>
-                      </select>
-                    </div>
-
                     <button
-                      onClick={handleSubmit}
+                      onClick={() => {setOpenTestRide(false)}}
                       className="w-full bg-blue-900 text-white font-bold py-4 rounded-xl hover:bg-blue-800 transition"
                     >
                       Confirm Test Ride Booking

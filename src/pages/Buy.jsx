@@ -24,7 +24,7 @@ const Buy = () => {
   });
 
   useEffect(() => {
-    fetch(`${url}/bike/all`)
+    fetch(`${url}/bike/findAtBuy`)
       .then((res) => res.json())
       .then((data) => {
         setDataList(data);
@@ -44,18 +44,18 @@ const Buy = () => {
       result = result.filter(
         (bike) =>
           bike.model.toLowerCase().includes(search.toLowerCase()) ||
-          bike.vehicle_brand.toLowerCase().includes(search.toLowerCase()),
+          bike.brand.toLowerCase().includes(search.toLowerCase()),
       );
     }
 
     result = result.filter((bike) => {
       const brandMatch =
         filters.brand?.length === 0 ||
-        filters.brand?.includes(bike.vehicle_brand);
+        filters.brand?.includes(bike.brand.toLowerCase());
 
       const colorMatch =
         filters.color?.length === 0 ||
-        filters.color?.includes(bike.vehicle_colour);
+        filters.color?.includes(bike.color.toLowerCase());
 
       const priceMatch =
         filters.price?.length === 0 ||

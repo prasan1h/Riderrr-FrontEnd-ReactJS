@@ -10,7 +10,7 @@ const Inspection = () => {
   const url = `${import.meta.env.VITE_API_URL}`;
 
   const fetchData = () => {
-    fetch(`${url}/bike/all`)
+    fetch(`${url}/bike/approvedAll`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
