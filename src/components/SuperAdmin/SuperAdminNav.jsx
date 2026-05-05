@@ -61,10 +61,10 @@ function SuperAdminNav({ isOpen, setIsOpen }) {
                   <span>Branches</span>
                 </Link>
     
-                <Link to="/addvehicle" className="flex items-center gap-3 hover:text-orange-600">
+                {/* <Link to="/addvehicle" className="flex items-center gap-3 hover:text-orange-600">
                   <FaPlus />
                   <span>Add vehicle</span>
-                </Link>
+                </Link> */}
 
               </div>
             </div>

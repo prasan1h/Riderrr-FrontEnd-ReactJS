@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { FiX } from "react-icons/fi";
 
-function UserForm({ isOpen, onClose, mode, data, onSuccess }) {
+function UserForm({ isOpen, onClose, mode, data, onSuccess, BranchId }) {
   const url = `${import.meta.env.VITE_API_URL}/user`;
 
   const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ function UserForm({ isOpen, onClose, mode, data, onSuccess }) {
     phone: "",
     role: "",
     password: "",
+    BranchId:""
   });
 
   // Prefill (edit)
@@ -30,7 +31,7 @@ function UserForm({ isOpen, onClose, mode, data, onSuccess }) {
 
   // Reset (add)
   useEffect(() => {
-    if (mode === "add") {
+    if (mode === "add" && isOpen) {
       setFormData({
         id: "",
         name: "",
@@ -40,7 +41,7 @@ function UserForm({ isOpen, onClose, mode, data, onSuccess }) {
         password: "",
       });
     }
-  }, [mode]);
+  }, [mode,isOpen]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +58,7 @@ function UserForm({ isOpen, onClose, mode, data, onSuccess }) {
 
     const payload = {
       ...formData,
-      branch: 2,
+      branch: BranchId,
     };
 
     //remove empty password in edit

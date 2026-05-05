@@ -11,8 +11,8 @@ import {
 } from "react-icons/fa";
 import { BsTruck } from "react-icons/bs";
 
-function Nav({ isOpen, setIsOpen }) {
-  const role="SUPERADMIN";
+function Nav({ isOpen, setIsOpen,role }) {
+  //const role="SUPERADMIN";
   return (
     <>
       {/* Overlay (mobile) */}

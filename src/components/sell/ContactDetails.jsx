@@ -35,7 +35,7 @@ function ContactDetails({
     vdata.append("PurchasedAmount", vehicleDetails.purchasedAmount);
     vdata.append("ownerType", vehicleDetails.ownerType);
     vdata.append("inspectionDate", vehicleDetails.inspectionDate);
-    vdata.append("inspectionBranch", "JALAHALLI");
+    vdata.append("inspectionBranch", vehicleDetails.inspectionBranch);
     vdata.append("customerName", vehicleDetails.Name);
     vdata.append("customerPhone", vehicleDetails.Phone);
     vdata.append("customerEmail", vehicleDetails.Email);
@@ -53,7 +53,7 @@ function ContactDetails({
     })
       .then((res) => {
         if (!res.ok) {
-          alert("Try again");
+        toast.error("try again");
           return;
         }
         toast.success("vehicle added");
@@ -62,7 +62,7 @@ function ContactDetails({
         showstep(false);
       })
       .catch((err) => {
-        console.log(err);
+       console.log(err);
         toast.error("try again");
       });
 

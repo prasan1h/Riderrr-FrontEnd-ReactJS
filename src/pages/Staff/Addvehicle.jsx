@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import StaffNav from "../../components/Staff/StaffNav";
+import Nav from "../../components/SuperAdmin/Nav";
 import { FaBars } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 function Addvehicle() {
   const [data, setdata] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const role = "STAFF";
 
   useEffect(() => {
     getdata();
@@ -18,8 +19,9 @@ function Addvehicle() {
       .then((data) => {
         setdata(data);
       })
-      .catch((err) => {console.log(err);
-        toast.error("Failed to fetch vehicle data")
+      .catch((err) => {
+        console.log(err);
+        toast.error("Failed to fetch vehicle data");
       });
   }
   const brands = Object.keys(data);
@@ -155,7 +157,7 @@ function Addvehicle() {
       </div>
 
       <div className="flex min-h-screen ">
-        <StaffNav isOpen={isOpen} setIsOpen={setIsOpen} />
+        <Nav isOpen={isOpen} setIsOpen={setIsOpen} role={role} />
 
         <div className="flex-1 md:ml-64 w-full md:p-10 p-4">
           <div className="w-full max-w-5xl mx-auto bg-white p-6 md:p-10 ">
