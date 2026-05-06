@@ -66,7 +66,7 @@ function StaffNav({ isOpen, setIsOpen }) {
               <span>Inspect</span>
             </Link>
 
-            <Link to="#" className="flex items-center gap-3 hover:text-orange-600">
+            <Link to="/testriderequests" className="flex items-center gap-3 hover:text-orange-600">
               <FaBicycle />
               <span>Test Ride Requests</span>
             </Link>

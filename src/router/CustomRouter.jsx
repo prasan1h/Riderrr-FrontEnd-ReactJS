@@ -19,6 +19,7 @@ import Nav from '../components/SuperAdmin/Nav'
 import { LogOut } from 'lucide-react'
 import Login from '../pages/Login'
 import ViewBike from '../pages/Web/ViewBike'
+import TestRide from '../pages/Staff/TestRide'
 
 
 const CustomRouter = () => {
@@ -44,6 +45,7 @@ const CustomRouter = () => {
         <Route path='/nav' element={<Nav/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/buy/:id' element={<ViewBike/>}></Route>
+        <Route path='/testriderequests' element={<TestRide/>}></Route>
     </Routes>
   )
 }

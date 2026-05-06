@@ -6,7 +6,6 @@ import BranchCard from "../../components/SuperAdmin/BranchCard";
 import BranchForm from "../../components/SuperAdmin/BranchForm";
 import { toast } from "react-toastify";
 
-
 function Branches() {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -25,30 +24,27 @@ function Branches() {
   // };
 
   const fetchBranches = (keyword = "") => {
-  const endpoint = keyword.trim()
-    ? `${url}/search?keyword=${encodeURIComponent(keyword)}`
-    : `${url}/all`;
+    const endpoint = keyword.trim()
+      ? `${url}/search?keyword=${encodeURIComponent(keyword)}`
+      : `${url}/all`;
 
-  fetch(endpoint)
-    .then((res) => res.json())
-    .then((data) => setBranches(data))
-    .catch((e) => console.log(e));
-};
-
+    fetch(endpoint)
+      .then((res) => res.json())
+      .then((data) => setBranches(data))
+      .catch((e) => console.log(e));
+  };
 
   useEffect(() => {
     fetchBranches();
   }, []);
 
   useEffect(() => {
-  const delayDebounce = setTimeout(() => {
-    fetchBranches(search);
-  }, 500); // debounce to avoid continuous calls
+    const delayDebounce = setTimeout(() => {
+      fetchBranches(search);
+    }, 500); // debounce to avoid continuous calls
 
-  return () => clearTimeout(delayDebounce);
-}, [search]);
-
-
+    return () => clearTimeout(delayDebounce);
+  }, [search]);
 
   const handleDelete = (id) => {
     if (!window.confirm("Are you sure you want to delete this branch?")) return;
@@ -82,7 +78,7 @@ function Branches() {
         <p className="text-orange-400 text-3xl font-semibold pb-10">
           Manage Branches
         </p>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
           {/* Add Branch Button */}
           <button
             onClick={() => {
@@ -90,22 +86,30 @@ function Branches() {
               setSelectedBranch(null);
               setShowModal(true);
             }}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg shadow-md transition"
+            className="flex items-center justify-center gap-2 
+            bg-orange-500 hover:bg-orange-600 text-white 
+            px-3 py-2 sm:px-5 sm:py-2.5 
+            text-sm sm:text-base 
+            rounded-lg shadow-md transition w-full sm:w-auto"
           >
-            <FiPlus className="text-lg" />
-            Add Branches
+            <FiPlus className="text-base sm:text-lg" />
+            <span className="sm:inline">Add Branch</span>
           </button>
 
           {/*  Search Bar */}
-          <div className="relative w-80">
-            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <div className="relative w-full sm:w-80">
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm sm:text-base" />
 
             <input
               type="text"
               placeholder="Search branches..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 
+              py-2 sm:py-2.5 
+              text-sm sm:text-base 
+              border border-gray-300 rounded-lg 
+              focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
         </div>
