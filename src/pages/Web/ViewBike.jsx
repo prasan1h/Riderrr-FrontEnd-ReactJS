@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
+import { toast } from "react-toastify";
 
 import { IoCalendarSharp } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
@@ -35,7 +36,7 @@ const ViewBike = () => {
     mobile: "",
     email: "",
     date: "",
-    time: ""
+    time: "",
   });
   const [testForm, setTestForm] = useState({
     name: "",
@@ -56,10 +57,38 @@ const ViewBike = () => {
   const handleChange = (e) =>
     setTestForm({ ...testForm, [e.target.name]: e.target.value });
 
-    const handleChangeBook = (e) =>
+  const handleChangeBook = (e) =>
     setBookForm({ ...bookForm, [e.target.name]: e.target.value });
 
   const handleSubmit = () => {
+    console.log(testForm);
+    setOpenTestRide(false);
+  };
+
+  const handleSubmitTest = () => {
+    const testData = new FormData();
+    testData.append("vehicleId", id);
+    testData.append("branchId", 2);
+    testData.append("customerName", testForm.name);
+    testData.append("customerPhone", testForm.mobile);
+    testData.append("customerEmail", testForm.email);
+    testData.append("requestedDate", testForm.date);
+
+    fetch(`${url}/api/test-ride/request`, {
+      method: "POST",
+      body: testData
+    })
+    .then((res) => {
+      if(!res.ok){
+        toast.error("Failed to Boook Test");
+        return;
+      }
+
+      res.json();
+      toast.success("Test ride Booking Confirmed");
+    })
+    .catch(e => console.log(e));
+
     console.log(testForm);
     setOpenTestRide(false);
   };
@@ -278,6 +307,7 @@ const ViewBike = () => {
                       <input
                         type="tel"
                         name="mobile"
+                        maxLength={10}
                         value={bookForm.mobile}
                         onChange={handleChangeBook}
                         className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
@@ -307,6 +337,7 @@ const ViewBike = () => {
                         <input
                           type="date"
                           name="date"
+                          min = { new Date().toISOString().split("T")[0]}
                           value={bookForm.date}
                           onChange={handleChangeBook}
                           className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
@@ -354,7 +385,7 @@ const ViewBike = () => {
                   onClose={() => setBookConfirm(false)}
                   bookForm={bookForm}
                   setBookForm={setBookForm}
-                  bike={data} 
+                  bike={data}
                 />
 
                 <button
@@ -400,6 +431,7 @@ const ViewBike = () => {
                       <input
                         type="tel"
                         name="mobile"
+                        maxLength={10}
                         value={testForm.mobile}
                         onChange={handleChange}
                         className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
@@ -427,6 +459,7 @@ const ViewBike = () => {
                         <input
                           type="date"
                           name="date"
+                          min = { new Date().toISOString().split("T")[0]}
                           value={testForm.date}
                           onChange={handleChange}
                           className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-900"
@@ -459,7 +492,10 @@ const ViewBike = () => {
                     </div>
 
                     <button
-                      onClick={() => {setOpenTestRide(false)}}
+                      // onClick={() => {setOpenTestRide(false)}}
+                      onClick={() => {
+                        handleSubmitTest();
+                      }}
                       className="w-full bg-blue-900 text-white font-bold py-4 rounded-xl hover:bg-blue-800 transition"
                     >
                       Confirm Test Ride Booking

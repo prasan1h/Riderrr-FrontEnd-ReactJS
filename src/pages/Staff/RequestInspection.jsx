@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import BikeCard from "../../components/Staff/BikeCard";
 import StaffNav from "../../components/Staff/StaffNav";
@@ -20,6 +21,7 @@ const RequestInspection = () => {
   };
 
   const handleStatusChange = (id) => {
+    toast.success("Vehicle status updated");
     setData((prev) => prev.filter((bike) => bike.id !== id));
   };
 
