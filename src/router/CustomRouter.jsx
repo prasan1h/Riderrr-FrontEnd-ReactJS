@@ -20,6 +20,7 @@ import { LogOut } from 'lucide-react'
 import Login from '../pages/Login'
 import ViewBike from '../pages/Web/ViewBike'
 import InspectList from '../pages/Staff/InspectList'
+import TestRide from '../pages/Staff/TestRide'
 
 
 const CustomRouter = () => {
@@ -46,6 +47,7 @@ const CustomRouter = () => {
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/buy/:id' element={<ViewBike/>}></Route>
         <Route path='/inspectionReport/:id' element={<InspectVehicle/>}></Route>
+        <Route path='/testriderequests' element={<TestRide/>}></Route>
     </Routes>
   )
 }

@@ -2,6 +2,7 @@ import { FiMail, FiUser, FiMapPin, FiPhone, FiEdit, FiTrash2 } from "react-icons
 import { LuBuilding2 } from "react-icons/lu";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { FaCity } from "react-icons/fa6";
 
 const BranchCard = ({branch , onEdit , onDelete}) => {
 
@@ -26,7 +27,7 @@ const BranchCard = ({branch , onEdit , onDelete}) => {
               <FiMail /> {branch.email}
             </p>
             <p className="flex items-center gap-2">
-              <FiUser /> Admin
+              <FaCity /> {branch.city}
             </p>
             <p className="flex items-center gap-2">
               <FiMapPin /> {branch.location}
@@ -38,31 +39,44 @@ const BranchCard = ({branch , onEdit , onDelete}) => {
         </div>
       </div>
 
+    
       {/* RIGHT SIDE BUTTONS */}
-      <div className="flex flex-col gap-3">
-        
-        
-        <Link to={`/branches/${branch.id}`}
-          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg shadow"
-        >
-          <FiUser /> Manage User
-        </Link> 
+<div className="flex flex-col sm:flex-col gap-2 sm:gap-3 w-full sm:w-auto mt-4 sm:mt-0">
+  
+  <Link
+    to={`/branches/${branch.id}`}
+    className="flex items-center justify-center gap-1 sm:gap-2 
+    bg-orange-500 hover:bg-orange-600 text-white 
+    px-2 py-1.5 sm:px-4 sm:py-2 
+    text-sm sm:text-base 
+    rounded-lg shadow w-full sm:w-auto"
+  >
+    <FiUser className="text-sm sm:text-base" /> Manage Users
+  </Link>
 
-        <button
-          onClick={() => onEdit(branch)}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow"
-        >
-          <FiEdit /> Edit Branch Details
-        </button>
+  <button
+    onClick={() => onEdit(branch)}
+    className="flex items-center justify-center gap-1 sm:gap-2 
+    bg-blue-600 hover:bg-blue-700 text-white 
+    px-2 py-1.5 sm:px-4 sm:py-2 
+    text-sm sm:text-base 
+    rounded-lg shadow w-full sm:w-auto"
+  >
+    <FiEdit className="text-sm sm:text-base" /> Edit Branch Details
+  </button>
 
-        <button
-          onClick={() => onDelete(branch.id)}
-          className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow"
-        >
-          <FiTrash2 /> Delete Branch
-        </button>
+  <button
+    onClick={() => onDelete(branch.id)}
+    className="flex items-center justify-center gap-1 sm:gap-2 
+    bg-red-500 hover:bg-red-600 text-white 
+    px-2 py-1.5 sm:px-4 sm:py-2 
+    text-sm sm:text-base 
+    rounded-lg shadow w-full sm:w-auto"
+  >
+    <FiTrash2 className="text-sm sm:text-base" /> Delete Branch
+  </button>
 
-      </div>
+</div>
     </div>
   );
 };
