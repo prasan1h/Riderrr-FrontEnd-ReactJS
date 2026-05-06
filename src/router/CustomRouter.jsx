@@ -19,6 +19,7 @@ import Nav from '../components/SuperAdmin/Nav'
 import { LogOut } from 'lucide-react'
 import Login from '../pages/Login'
 import ViewBike from '../pages/Web/ViewBike'
+import InspectList from '../pages/Staff/InspectList'
 
 
 const CustomRouter = () => {
@@ -33,17 +34,18 @@ const CustomRouter = () => {
         <Route path='/addvehicle' element={<Addvehicle/>}></Route>
         <Route path='/admin/inspection' element={<InspectionAdmin/>}></Route>
         <Route path='/admin/inspect-form/:id' element={<InspectionForm/>}></Route>
-        <Route path='/InspectVehicle'element={<InspectVehicle/>}></Route>
+        {/* <Route path='/InspectVehicle'element={<InspectVehicle/>}></Route> */}
         <Route path='/admin/vehiclelist'element={<VehicleListing/>}></Route>
         <Route path='/admin/vehiclelist/:id'element={<ViewVehicleById/>}></Route>
         <Route path='/admin/editvehicle/:id'element={<EditVehicle/>}></Route>
-        <Route path='/InspectVehicle' element={<InspectVehicle/>}></Route>
+        <Route path='/InspectVehicle' element={<InspectList/>}></Route>
         <Route path='/branches/:branchId' element={<ManageUsers/>}></Route>
         <Route path='/admin/manageusers' element={<ManageUsers/>}></Route>
         <Route path='/branches' element={<Branches/>}></Route>
         <Route path='/nav' element={<Nav/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/buy/:id' element={<ViewBike/>}></Route>
+        <Route path='/inspectionReport/:id' element={<InspectVehicle/>}></Route>
     </Routes>
   )
 }

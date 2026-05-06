@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from "react";
 
-import BikeCard from "../../components/Staff/BikeCard";
 import StaffNav from "../../components/Staff/StaffNav";
+import InspectCard from "../../components/Staff/InspectCard";
 
-import { FaMotorcycle } from "react-icons/fa6";
+import {  FaMotorcycle } from "react-icons/fa6";
 
-const RequestInspection = () => {
+const InspectList = () => {
+  const url = `${import.meta.env.VITE_API_URL}`;
+
   const [data, setData] = useState([]);
 
-  const url = `${import.meta.env.VITE_API_URL}`;
   const fetchData = () => {
-    fetch(`${url}/bike/pendingAll`)
+    fetch(`${url}/bike/draftAll`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
         console.log(data);
       })
-      .catch((e) => console.log("error", e));
-  };
-
-  const handleStatusChange = (id) => {
-    setData((prev) => prev.filter((bike) => bike.id !== id));
+      .catch((e) => console.log(e));
   };
 
   useEffect(() => {
@@ -34,12 +31,12 @@ const RequestInspection = () => {
         <div className="absolute left-68 top-4 text-black">
           <p className="text-3xl font-semibold flex items-center gap-3">
             <FaMotorcycle />
-            Hello Staff, here is the list of requests...
+            Hello Staff, here is the list of approved for inspection....
           </p>
         </div>
         <div className="absolute flex justify-center flex-wrap bg-gray-100 left-64 top-20">
           {data.map((bike, index) => (
-            <BikeCard bike={bike} key={index}     onStatusChange={handleStatusChange}/>
+            <InspectCard bike={bike} key={index} />
           ))}
         </div>
       </div>
@@ -47,4 +44,4 @@ const RequestInspection = () => {
   );
 };
 
-export default RequestInspection;
+export default InspectList;

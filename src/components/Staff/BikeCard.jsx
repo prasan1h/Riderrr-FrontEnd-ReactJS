@@ -16,7 +16,7 @@ import {
   MapPin,
 } from "lucide-react";
 
-const BikeCard = ({ bike }) => {
+const BikeCard = ({ bike, onStatusChange  }) => {
   const url = `${import.meta.env.VITE_API_URL}`;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,6 +45,8 @@ const BikeCard = ({ bike }) => {
           }
           res.json();
           toast.success("Updated the vehicle status");
+          onStatusChange(id);
+
           console.log("bike ", status);
         })
         .catch((e) => console.log("error: ", e));

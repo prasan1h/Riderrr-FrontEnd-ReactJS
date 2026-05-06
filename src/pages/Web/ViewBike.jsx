@@ -18,7 +18,6 @@ import ConfirmBookModal from "../../components/buy/ConfirmBookModal";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -62,11 +61,10 @@ const ViewBike = () => {
 
   const handleSubmit = () => {
     console.log(testForm);
-    onClose();
+    setOpenTestRide(false);
   };
 
   const handleSubmitBook = () => {
-    console.log("bookForm ",bookForm);
     setOpenBookNow(false);
     setBookConfirm(true);
   };

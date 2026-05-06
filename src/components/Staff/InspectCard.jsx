@@ -1,22 +1,19 @@
 import React, { useEffect } from "react";
 import { Heart, Star, CalendarDays, Gauge, Radar } from "lucide-react";
 
-const BikeCardBuy = ({bike}) => {
-    const url = `${import.meta.env.VITE_API_URL}`;
+const InspectCard = ({bike}) => {
+  const url = `${import.meta.env.VITE_API_URL}`;
 
-    const handleClick = (id) => {
-      window.location.href = `/buy/${id}`;
-    }
-
-    // useEffect(() => {
-    // },[]);
+  const handleClick = (id) => {
+    window.location.href = `/inspectionReport/${id}`;
+  };
 
   return (
     <>
       <div className="flex flex-col justify-between border-2 border-gray-300 rounded-xl bg-white w-75 m-2">
         <div className="flex justify-center items-center relative">
           <p className="absolute text-white text-sm flex bg-secondary rounded-full right-1 top-1 px-2 ">
-            Verified
+            Drafted
           </p>
 
           <img
@@ -33,10 +30,10 @@ const BikeCardBuy = ({bike}) => {
               <p className="text-2xl font-semibold">{bike.model}</p>
             </div>
 
-            <p className="flex items-center gap-2 px-2 bg-yellow-100 rounded-xl h-fit">
+            {/* <p className="flex items-center gap-2 px-2 bg-yellow-100 rounded-xl h-fit">
               <Star size={16} className="text-yellow-500" />
               {bike.Rating}
-            </p>
+            </p> */}
           </div>
 
           <div className="flex gap-3 py-1 text-gray-500">
@@ -57,15 +54,18 @@ const BikeCardBuy = ({bike}) => {
           </div>
 
           <div className="flex justify-between items-end py-2">
-            <div>
+            {/* <div>
               <p className="text-sm text-gray-500">Price :</p>
               <p className="text-3xl">₹{bike.outLetPrice}</p>
-            </div>
+            </div> */}
 
             <button
-              onClick={() => {handleClick(bike.id)}}
-             className="px-5 h-12 border-2 border-black rounded-xl font-bold">
-              View
+              onClick={() => {
+                handleClick(bike.id);
+              }}
+              className="px-5 h-12 w-full border-2 border-black rounded-xl font-bold"
+            >
+              Start Inspect
             </button>
           </div>
         </div>
@@ -74,4 +74,4 @@ const BikeCardBuy = ({bike}) => {
   );
 };
 
-export default BikeCardBuy;
+export default InspectCard;
