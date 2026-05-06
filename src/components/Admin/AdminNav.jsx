@@ -66,10 +66,7 @@ function AdminNav({ isOpen, setIsOpen }){
                   <span>Vehicle Listing</span>
                 </Link>
     
-                <Link to="/admin/manageusers" className="flex items-center gap-3 hover:text-orange-600">
-                  <FaBicycle />
-                  <span>Manage Users</span>
-                </Link>
+
               </div>
             </div>
     

@@ -12,7 +12,10 @@ const TestRide = () => {
 
   const fetchRides = () => {
     fetch(`${url}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {toast.error("Failed to fetch");}
+        return res.json();
+      })
       .then((data) => {
         setRides(data);
         console.log(data);
@@ -34,7 +37,7 @@ const TestRide = () => {
         </button>
       </div>
       <div className="flex min-h-screen ">
-        <StaffNav />
+        <StaffNav isOpen={isOpen} setIsOpen={setIsOpen}/>
 
         <div className="p-4 sm:p-6  bg-gray-100   md:ml-64 w-full md:p-10">
           <h1 className="text-2xl sm:text-3xl font-bold mb-6">
@@ -49,8 +52,8 @@ const TestRide = () => {
                 ride={ride}
                 onUpdate={(updatedRide) => {
                   setRides((prev) =>
-                     prev.filter(r => r.id !== updatedRide.id)
-                )
+                    prev.filter((r) => r.id !== updatedRide.id),
+                  );
                 }}
               />
             ))}
