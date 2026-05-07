@@ -40,6 +40,7 @@ function ContactDetails({
     vdata.append("customerPhone", vehicleDetails.Phone);
     vdata.append("customerEmail", vehicleDetails.Email);
     vdata.append("registrationNumber", vehicleDetails.registrationNumber);
+    vdata.append("branchId",vehicleDetails.inspectionBranchId);
 
     Object.values(vehicleDetails.images).forEach((img) => {
       if (img) {
