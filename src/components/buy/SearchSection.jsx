@@ -13,7 +13,7 @@ const SearchSection = ({
         <div className="px-8 py-2">
           <p className="text-3xl py-2 text-secondary">Book Your Vehicle</p>
           <p className="text-md text-gray-500">
-            142 Riderrr Certified Bikes are available in Bengaluru
+            100s of Riderrr Certified Bikes are available in Bengaluru
           </p>
         </div>
         <div className="flex justify-end items-center px-5">

@@ -67,10 +67,10 @@ const FilterSection = ({ filters, setFilters }) => {
                 <input
                   type="checkbox"
                   name="price"
-                  value="250000-500000"
+                  value="250000-50000000"
                   className="peer hidden"
                   onChange={handleFilterChange}
-                  checked={filters.price.includes("250000-500000")}
+                  checked={filters.price.includes("250000-50000000")}
                 />
                 <span className=" text-xs bg-secondary px-2 py-1 border-2  border-secondary rounded-full  peer-checked:bg-white peer-checked:text-secondary peer-checked:border-secondary">
                   Above 2.5L
