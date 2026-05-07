@@ -21,7 +21,7 @@ const RequestInspection = () => {
   };
 
   const handleStatusChange = (id) => {
-    toast.success("Vehicle status updated");
+    toast.info("check the inspection list");
     setData((prev) => prev.filter((bike) => bike.id !== id));
   };
 

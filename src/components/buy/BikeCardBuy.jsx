@@ -8,8 +8,9 @@ const BikeCardBuy = ({bike}) => {
       window.location.href = `/buy/${id}`;
     }
 
-    // useEffect(() => {
-    // },[]);
+    useEffect(() => {
+      console.log(bike);
+    },[]);
 
   return (
     <>
