@@ -59,7 +59,7 @@ function Addvehicle() {
     "Blue",
     "Green",
     "Yellow",
-    "Gray",
+    "Grey",
     "Silver",
     "Orange",
     "Purple",

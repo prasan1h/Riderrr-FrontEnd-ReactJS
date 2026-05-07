@@ -8,7 +8,7 @@ function Color({ vehicleDetails,setVehicleDetails, setStep }) {
     { name: "Blue", class: "bg-blue-500" },
     { name: "Green", class: "bg-green-500" },
     { name: "Yellow", class: "bg-yellow-400" },
-    { name: "Gray", class: "bg-gray-500" },
+    { name: "Grey", class: "bg-gray-500" },
     { name: "Silver", class: "bg-gray-300" },
   ];
 
