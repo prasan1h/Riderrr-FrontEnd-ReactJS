@@ -36,6 +36,7 @@ const Sell = () => {
     Phone: "",
     Email: "",
     registrationNumber: "",
+    inspectionBranchId:"",
 
     images: {
       front: null,

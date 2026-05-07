@@ -11,7 +11,25 @@ function Addvehicle() {
 
   useEffect(() => {
     getdata();
+    fetchBranches();
   }, []);
+
+  const [branches, setBranches] = useState([]);
+  const url1 = `${import.meta.env.VITE_API_URL}/branch/all`;
+  const fetchBranches = () => {
+    fetch(`${url1}`)
+      .then((res) => {
+        if (!res.ok) {
+          toast.error("Failed to fetch branches");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setBranches(data);
+      })
+      .catch((err) => console.error(err));
+  };
 
   function getdata() {
     fetch("./src/data/vehicles.json")
@@ -55,7 +73,7 @@ function Addvehicle() {
     years.push(y);
   }
 
-  const [formData, setFormData] = useState({
+  const initialFormState = {
     brand: "",
     type: "",
     model: "",
@@ -71,7 +89,10 @@ function Addvehicle() {
     mobile: "",
     email: "",
     photos: [],
-  });
+    inspectionBranchId: "",
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -93,6 +114,7 @@ function Addvehicle() {
     vdata.append("customerName", formData.customerName);
     vdata.append("customerPhone", formData.mobile);
     vdata.append("customerEmail", formData.email);
+    vdata.append("branchId", formData.inspectionBranchId);
 
     formData.photos.forEach((photo) => {
       vdata.append("images", photo);
@@ -109,12 +131,27 @@ function Addvehicle() {
         }
         toast.success("Vehicle added successfully");
         console.log(formData);
+        setFormData(initialFormState);
       })
       .catch((err) => console.log(err));
   }
-
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Handle branch selection
+    if (name === "inspectionBranchId") {
+      const selectedBranch = branches.find(
+        (branch) => branch.id === Number(value),
+      );
+
+      setFormData({
+        ...formData,
+        inspectionBranchId: selectedBranch.id,
+        inspectionBranch: selectedBranch.name,
+      });
+
+      return;
+    }
 
     setFormData({
       ...formData,
@@ -231,6 +268,7 @@ function Addvehicle() {
                   id="model"
                   type="text"
                   name="model"
+                  value={formData.model}
                   placeholder="e.g. Pulsar 150"
                   className="w-full border rounded-lg p-2"
                   autoComplete="off"
@@ -299,6 +337,7 @@ function Addvehicle() {
                     id="purchaseDate"
                     type="date"
                     name="purchaseDate"
+                    value={formData.purchaseDate}
                     className="w-full border rounded-lg p-2"
                     onChange={handleChange}
                     max={yesterdayStr}
@@ -316,6 +355,7 @@ function Addvehicle() {
                     id="purchasedAmount"
                     type="number"
                     name="purchasedAmount"
+                    value={formData.purchasedAmount}
                     placeholder="e.g. 60000"
                     className="w-full border rounded-lg p-2"
                     onChange={handleChange}
@@ -332,6 +372,7 @@ function Addvehicle() {
                   name="ownerType"
                   className="w-full border rounded-lg p-2"
                   onChange={handleChange}
+                  value={formData.ownerType}
                 >
                   <option value="">-- Select Owner Type --</option>
                   <option value="1st Owner">1st Owner</option>
@@ -355,6 +396,7 @@ function Addvehicle() {
                   placeholder="e.g. KA 01 AB 1234"
                   className="w-full border rounded-lg p-2"
                   onChange={handleChange}
+                  value={formData.registrationNumber}
                 />
               </div>
 
@@ -421,6 +463,7 @@ function Addvehicle() {
                     className="w-full border rounded-lg p-2"
                     onChange={handleChange}
                     min={todayStr}
+                    value={formData.inspectionDate}
                   />
                 </div>
 
@@ -432,14 +475,19 @@ function Addvehicle() {
                     Inspection Branch
                   </label>
                   <select
-                    id="inspectionBranch"
-                    name="inspectionBranch"
+                    id="inspectionBranchId"
+                    name="inspectionBranchId"
+                    value={formData.inspectionBranchId}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-2"
                   >
-                    <option>Jalahalli</option>
-                    <option>City Center</option>
-                    <option>Main Branch</option>
+                    <option value="">- select Location -</option>
+
+                    {branches.map((branch) => (
+                      <option key={branch.id} value={branch.id}>
+                        {branch.name}, {branch.city}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -466,6 +514,7 @@ function Addvehicle() {
                     autoComplete="name"
                     className="border rounded-lg p-2"
                     onChange={handleChange}
+                    value={formData.customerName}
                   />
                 </div>
 
@@ -482,6 +531,7 @@ function Addvehicle() {
                     autoComplete="tel"
                     className="border rounded-lg p-2"
                     onChange={handleChange}
+                    value={formData.mobile}
                     required
                   />
                 </div>
@@ -498,6 +548,7 @@ function Addvehicle() {
                     autoComplete="email"
                     className="border rounded-lg p-2"
                     onChange={handleChange}
+                    value={formData.email}
                     required
                   />
                 </div>
